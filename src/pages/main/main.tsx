@@ -1,5 +1,4 @@
-import Card from '../card/card';
-
+import Card from '../../components/card/card';
 export default function Main({ offersCount}: { offersCount: number }): JSX.Element {
   return (
     <html lang="en">
