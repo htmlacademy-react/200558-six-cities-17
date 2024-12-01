@@ -1,5 +1,5 @@
-import Card from '../card/card';
-
+import { Routes } from "react-router-dom";
+import Card from "../../components/card/card";
 export default function Main({ offersCount}: { offersCount: number }): JSX.Element {
   return (
     <html lang="en">
