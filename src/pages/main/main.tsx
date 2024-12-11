@@ -72,7 +72,7 @@ export default function Main({ offersCount, cards }: MainProp): JSX.Element {
                     </Link>
                   </li>
                   <li className="locations__item">
-                    <Link className="locations__item-link tabs__item tabs__item--active">
+                    <Link className="locations__item-link tabs__item tabs__item--active" to="#">
                       <span>Amsterdam</span>
                     </Link>
                   </li>
