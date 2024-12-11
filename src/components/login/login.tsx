@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function Login():JSX.Element {
   return (
     <html lang="en">
@@ -19,9 +20,9 @@ export default function Login():JSX.Element {
             <div className="container">
               <div className="header__wrapper">
                 <div className="header__left">
-                  <a className="header__logo-link" href="main.html">
+                  <Link className="header__logo-link" to="main.html">
                     <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -45,9 +46,9 @@ export default function Login():JSX.Element {
               </section>
               <section className="locations locations--login locations--current">
                 <div className="locations__item">
-                  <a className="locations__item-link" href="#">
+                  <Link className="locations__item-link" to="#">
                     <span>Amsterdam</span>
-                  </a>
+                  </Link>
                 </div>
               </section>
             </div>
