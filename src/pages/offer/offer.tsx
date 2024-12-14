@@ -184,7 +184,7 @@ export default function Offer({ cards }: TCardsProps): JSX.Element {
                     </div>
                   </li>
                 </ul>
-                <CommentForm onSubmit={onCommontFormSubmit}/>
+                <CommentForm onSubmit={onCommontFormSubmit} key="CommentForm"/>
               </section>
             </div>
           </div>

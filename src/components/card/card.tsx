@@ -1,11 +1,11 @@
 import { TCard } from '../../mocks/offers';
 
- type TCardProps = TCard &
-{ onHover: (id: string | null) => void; classBlock: string };
+ type TCardProps =
+{offer:TCard; onHover: (id: string | null) => void; classBlock: string };
 
-function Card({ price, title, type, favorites, classBlock, onHover = () => { }, id }: TCardProps): JSX.Element {
+function Card({offer, classBlock, onHover = () => { } }: TCardProps): JSX.Element {
   return (
-    <article className={`${classBlock}__card place-card`} onMouseEnter={() => onHover(id)} onMouseLeave={() => onHover(null)}>
+    <article className={`${classBlock}__card place-card`} onMouseEnter={() => onHover(offer.id)} onMouseLeave={() => onHover(null)}>
       <div className={`${classBlock}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
@@ -14,10 +14,10 @@ function Card({ price, title, type, favorites, classBlock, onHover = () => { }, 
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">{price}</b>
+            <b className="place-card__price-value">{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button  ${favorites ? 'place-card__bookmark-button--active' : ''}  button`} type="button">
+          <button className={`place-card__bookmark-button  ${offer.favorites ? 'place-card__bookmark-button--active' : ''}  button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg><span className="visually-hidden">In bookmarks</span>
@@ -30,9 +30,9 @@ function Card({ price, title, type, favorites, classBlock, onHover = () => { }, 
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <a href="#">{offer.title}</a>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>);
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 export default function Favorites():JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
   return (
@@ -112,7 +112,7 @@ export default function Favorites():JSX.Element {
                       </h2>
                       <p className="place-card__type">Room</p>
                     </div>
-                  </Linkrticle>
+                  </article>
                 </div>
               </li>
 
