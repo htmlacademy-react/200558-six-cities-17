@@ -1,15 +1,47 @@
-import { TCard } from '../../mocks/offers';
+import { TOffer } from '../../types/types';
+import { Link } from 'react-router-dom';
+import cls from 'classnames';
 
- type TCardProps =
-{offer:TCard; onHover: (id: string | null) => void; classBlock: string };
+ type TCardProps = {
+   offer: TOffer & { point?:object};
+  onHover: (id: string | null) => void;
+  variant: 'vertical' | 'horizontal';
+};
 
-function Card({offer, classBlock, onHover = () => { } }: TCardProps): JSX.Element {
+export function Card({ offer, variant ="horizontal", onHover }: TCardProps): JSX.Element {
+
+  const configs = {
+    vertical: {
+      class: 'cities',
+      width: 260,
+      height: 200
+    },
+    horizontal: {
+      class: 'favorites',
+      width: 150,
+      height: 110
+    },
+  } as const;
+  const config = configs[variant];
   return (
-    <article className={`${classBlock}__card place-card`} onMouseEnter={() => onHover(offer.id)} onMouseLeave={() => onHover(null)}>
-      <div className={`${classBlock}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
-          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
-        </a>
+    <article
+      className={`${config.class}__card place-card`}
+      onMouseEnter={() => onHover(offer.id)}
+      onMouseLeave={() => onHover(null)}
+    >
+      <div className="place-card__mark" style={{ display: offer.isPremium || 'none'}}>
+        <span>Premium</span>
+      </div>
+      <div className={`${config.class}__image-wrapper place-card__image-wrapper`}>
+        <Link to={`/offer/${offer.id}`}>
+          <img
+            className="place-card__image"
+            src={offer.previewImage}
+            width={config.width}
+            height={config.height}
+            alt={offer.title}
+          />
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -17,7 +49,7 @@ function Card({offer, classBlock, onHover = () => { } }: TCardProps): JSX.Elemen
             <b className="place-card__price-value">{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button  ${offer.favorites ? 'place-card__bookmark-button--active' : ''}  button`} type="button">
+          <button className={cls('place-card__bookmark-button',{'place-card__bookmark-button--active':offer.isFavorite}, 'button')} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg><span className="visually-hidden">In bookmarks</span>
@@ -34,7 +66,6 @@ function Card({offer, classBlock, onHover = () => { } }: TCardProps): JSX.Elemen
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
-    </article>);
+    </article>
+  );
 }
-export { Card };
-export type { TCardProps};

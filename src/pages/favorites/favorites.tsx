@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-export default function Favorites():JSX.Element {
+import Cards from '../../components/cards/cards';
+import { TOffer } from '../../types/types';
+import { TOfferProp } from '../../types/types';
+import { offersCities } from '../../mocks/offers';
+export default function Favorites({ offers }: TOfferProp):JSX.Element {
+  console.log('offers=', offers)
   const [cardHover, setCardHover] = useState<string | null>(null);
+  type TFilter = (el: TOffer) =>TOffer ;
   return (
     <div className="page">
       <header className="header">
@@ -47,7 +53,11 @@ export default function Favorites():JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <article className="favorites__card place-card">
+                  <Cards
+                    offers={offersCities.Amsterdam}
+                    variant='horizontal'
+                  />
+                  {/* <article className="favorites__card place-card">
                     <div className="place-card__mark">
                       <span>Premium</span>
                     </div>
@@ -112,7 +122,7 @@ export default function Favorites():JSX.Element {
                       </h2>
                       <p className="place-card__type">Room</p>
                     </div>
-                  </article>
+                  </article> */}
                 </div>
               </li>
 
@@ -125,7 +135,11 @@ export default function Favorites():JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <article className="favorites__card place-card">
+                  <Cards
+                    offers={offersCities.Cologne}
+                    variant='horizontal'
+                  />
+                  {/* <article className="favorites__card place-card">
                     <div className="favorites__image-wrapper place-card__image-wrapper">
                       <Link to="#">
                         <img className="place-card__image" src="img/apartment-small-04.jpg" width="150" height="110" alt="Place image"/>
@@ -155,7 +169,7 @@ export default function Favorites():JSX.Element {
                       </h2>
                       <p className="place-card__type">Apartment</p>
                     </div>
-                  </article>
+                  </article> */}
                 </div>
               </li>
             </ul>

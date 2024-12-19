@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { TCardsProps } from '../../mocks/offers';
-import Cards from '../../cards/cards';
-import CommentForm from '../../commentForm/commentForm';
+import { offers, TCardsProps } from '../../mocks/offers';
+import Cards from '../../components/cards/cards';
+import CommentForm from '../../components/commentForm/commentForm';
 import { Link } from 'react-router-dom';
 export default function Offer({ cards }: TCardsProps): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
@@ -194,8 +194,8 @@ export default function Offer({ cards }: TCardsProps): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <Cards cards={cards} classBlock='cities'
-                classFraper="cities__places-list tabs__content" onHover={(id) => {
+              <Cards offers={offers} variant='vertical'
+                onHover={(id) => {
                   setCardHover(id);
                 }}
               />

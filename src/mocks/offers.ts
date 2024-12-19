@@ -1,45 +1,142 @@
+import { TOffer, HousingRange } from '../types/types';
 
-enum housingRange {apartment= 'Apartment', room='Room'}
-type TCard ={
-    id:string;
-    price: number;
-    title:string;
-    type:housingRange;
-    favorites?: boolean;
-};
-type TCardsProps={cards:TCard[]};
-export type { TCardsProps, TCard };
-const cards:TCard[] = [
+ const offers: TOffer[] = [
   {
-    id: '1',
-    price: 123,
-    title: 'Beautiful & luxurious apartment at great location',
-    type: housingRange.apartment
-  },
-  {
-    id: '2',
-    price: 80,
-    title: 'Wood and stone place',
-    type: housingRange.room,
-    favorites:true
-  },
-  {
-    id: '3',
-    price: 132,
-    title: 'Canal View Prinsengracht',
-    type: housingRange.apartment
-  },
-  {
-    id: '4',
-    price: 180,
+    id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
     title: 'Nice, cozy, warm big bed apartment',
-    type: housingRange.apartment
+    type: HousingRange.apartment,
+    price: 180,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 8
+      }
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
+    isFavorite: false,
+    isPremium: true,
+    rating: 5,
+    previewImage: 'https://url-to-image/image.png'
   },
   {
-    id: '5',
-    price: 80,
+    id: '6af6f711-c28d-4121-82cd-e0b462a27f01',
     title: 'Wood and stone place',
-    type: housingRange.room
-  }
+    type: HousingRange.apartment,
+    price: 80,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3609553943508,
+        longitude: 4.85309666406198,
+        zoom: 8
+      }
+    },
+    location: {
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 8
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 4,
+    previewImage: 'https://url-to-image/image.png'
+  },
+  {
+    id: '6af6f711-c28d-4121-82cd-e0b462a27f02',
+    title: 'Wood and stone place',
+    type: HousingRange.apartment,
+    price: 80,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
+        zoom: 8
+      }
+    },
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 4,
+    previewImage: 'https://url-to-image/image.png'
+  },
+  {
+    id: '6af6f711-c28d-4121-82cd-e0b462a27f03',
+    title: 'Wood and stone place',
+    type: HousingRange.apartment,
+    price: 80,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 8
+      }
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8
+    },
+    isFavorite: true,
+    isPremium: false,
+    rating: 4,
+    previewImage: 'https://url-to-image/image.png'
+  },
+  {
+    id: '6af6f711-c28d-4121-82cd-e0b462a27f04',
+    title: 'White castle',
+    type: HousingRange.apartment,
+    price: 180,
+    city: {
+      name: 'Cologne',
+      location: {
+        latitude: 52.35514938496378,
+        longitude: 4.673877537499948,
+        zoom: 8
+      }
+    },
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 8
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 4,
+    previewImage: 'https://url-to-image/image.png'
+  },
 ];
-export { cards,housingRange };
+
+const offersCities:object = {};
+
+offers.forEach((el)=>{
+  const city = el.city;
+  const cityName = city.name;
+  const location = city.location;
+  if (offersCities[cityName] === undefined) {
+    offersCities[cityName] = [];
+  }
+  const elCopy = {
+    ...el,
+    point: {
+      title: el.title,
+      lat: location.latitude,
+      lng: location.longitude
+    }
+  };
+  offersCities[cityName].push(elCopy);
+});
+
+export { offersCities, offers };
+console.log('offersCities=', offersCities);
