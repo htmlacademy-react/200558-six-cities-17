@@ -1,22 +1,27 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from '../pages/main/main';
-import Login from '../components/login/login';
-import Favorites from '../favorites/favorites';
+import Login from '../pages/login/login';
+import Favorites from '../pages/favorites/favorites';
 import Offer from '../pages/offer/offer';
-import { PrivateStatus,routes } from '../data/constant';
-import ErrorAddressing from '../errorAddressing/errorAddressing';
+import { PrivateStatus, Address } from '../data/constant';
+import ErrorAddressing from '../pages/errorAddressing/errorAddressing';
 import PrivateRoute from '../privateRoute';
-import type {TCard} from '../mocks/offers';
+import { TOffer } from '../types/types';
 
-export default function App({cards}: {cards:TCard[]}):JSX.Element {
+export default function App({ offers }: { offers:TOffer[]}):JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route index element={<Favorites cards={cards} />}/> */}
-        <Route index element={<Main offersCount={4} cards={cards} />} />
-        <Route path={routes.login} element={<Login />} />
-        <Route path={routes.favorites} element={<PrivateRoute status={PrivateStatus.Guest}><Favorites cards={cards}/></PrivateRoute>} />
-        <Route path={routes.offer} element={<Offer cards={cards} />} />
+        {/* <Route index element={<Favorites offers={offers} />}/> */}
+        <Route index element={<Main offersCount={4} offers={offers} />} />
+        <Route path={Address.login} element={<Login />} />
+        <Route path={Address.favorites} element={
+          <PrivateRoute status={PrivateStatus.Guest}>
+            <Favorites offers={offers}/>
+          </PrivateRoute>
+        }
+        />
+        <Route path={Address.offer} element={<Offer offers={offers} />} />
         <Route path="*" element={<ErrorAddressing/>}/>
       </Routes>
     </BrowserRouter>
