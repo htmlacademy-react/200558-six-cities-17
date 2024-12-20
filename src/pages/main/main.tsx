@@ -3,12 +3,11 @@ import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
+import LocationsItem from '../../components/locationsItem/locationsItem';
 type MainProp = { offersCount: number; offers: TCard[] };
 export default function Main({ offersCount, offers }: MainProp): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
-  const [sity, setSity] = useState<string | null>('Amsterdam');
-  const onUlClick = (sity:string) => (() => setSity(sity));
-  console.log('offersCities[sity].city.location=', offersCities[sity].city.location);
+  const [sity, setSity] = useState<string | null>('Cologne');
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -44,7 +43,7 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
+            {/* <ul className="locations__list tabs__list">
               <li className="locations__item">
                 <Link className="locations__item-link tabs__item" onClick={onUlClick('Paris')} to="#">
                   <span>Paris</span>
@@ -75,7 +74,8 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
                   <span>Dusseldorf</span>
                 </Link>
               </li>
-            </ul>
+            </ul> */}
+            <LocationsItem onClick={setSity}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
           </section>
         </div>
         <div className="cities">
@@ -98,7 +98,7 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <Cards offers={offers}
+              <Cards offers={offersCities[sity]}
                 onHover={(id)=>{
                   setCardHover(id);
                 }}
@@ -109,7 +109,7 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
               <section className="cities__map map">
                 <Map points={offersCities[sity]}
                   selectedPoint={cardHover}
-                  city={offersCities[sity][0].city.location}
+                  city={offersCities[sity].location}
                 />
               </section>
             </div>

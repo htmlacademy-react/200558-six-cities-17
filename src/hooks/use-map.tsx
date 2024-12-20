@@ -8,11 +8,9 @@ function useMap(
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
-
+  console.log('city useMap=', city);
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
-      console.log('city useMap=', city);
-      
       const instance = new Map(mapRef.current, {
         center: {
           lat: city.latitude,
@@ -35,6 +33,11 @@ function useMap(
       isRenderedRef.current = true;
     }
   }, [mapRef, city]);
+  useEffect(()=>{
+    if(map) {
+      map.setView([city.latitude, city.longitude],8);
+    }
+  }, [ city, map]);
 
   return map;
 }

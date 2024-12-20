@@ -101,14 +101,14 @@ import { TOffer, HousingRange } from '../types/types';
     city: {
       name: 'Cologne',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 50.9333,
+        longitude: 6.95,
         zoom: 8
       }
     },
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 50.9333,
+      longitude: 6.95,
       zoom: 8
     },
     isFavorite: false,
@@ -131,10 +131,11 @@ offers.forEach((el)=>{
     ...el,
     point: {
       title: el.title,
-      lat: location.latitude,
-      lng: location.longitude
+      lat: city.latitude,
+      lng: city.longitude
     }
   };
+  offersCities[cityName].location = location;
   offersCities[cityName].push(elCopy);
 });
 
