@@ -3,6 +3,7 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import { TOffer } from '../../types/types';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../data/constant';
+import { City } from '../../types/types';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
@@ -25,7 +26,7 @@ const currentCustomIcon = new Icon({
 
 function Map(props: MapProps): JSX.Element {
   const {city, points, selectedPoint} = props;
-  console.log('points=', points);
+  console.log('city=', city);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -34,8 +35,8 @@ function Map(props: MapProps): JSX.Element {
       const markerLayer = layerGroup().addTo(map);
       points.forEach((point) => {
         const marker = new Marker({
-          lat: point.lat,
-          lng: point.lng
+          lat: point.location.latitude,
+          lng: point.location.longitude
         });
 
         marker

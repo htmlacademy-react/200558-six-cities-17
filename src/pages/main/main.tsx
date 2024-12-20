@@ -2,12 +2,13 @@ import { offersCities, type TCard } from '../../mocks/offers';
 import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Map from '../../components/map/map';
 type MainProp = { offersCount: number; offers: TCard[] };
 export default function Main({ offersCount, offers }: MainProp): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
-  const [sity,setSity] = useState<string | null>('A');
+  const [sity, setSity] = useState<string | null>('Amsterdam');
   const onUlClick = (sity:string) => (() => setSity(sity));
-  console.log('sity=', sity);
+  console.log('offersCities[sity].city.location=', offersCities[sity].city.location);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -108,7 +109,7 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
               <section className="cities__map map">
                 <Map points={offersCities[sity]}
                   selectedPoint={cardHover}
-                  city={{ lat: 52.374, lng: 4.88969}}
+                  city={offersCities[sity][0].city.location}
                 />
               </section>
             </div>

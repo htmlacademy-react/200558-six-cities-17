@@ -11,10 +11,12 @@ function useMap(
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
+      console.log('city useMap=', city);
+      
       const instance = new Map(mapRef.current, {
         center: {
-          lat: city.lat,
-          lng: city.lng
+          lat: city.latitude,
+          lng: city.longitude
         },
         zoom: 10
       });
