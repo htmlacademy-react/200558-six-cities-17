@@ -135,7 +135,6 @@ offers.forEach((el)=>{
       lng: city.longitude
     }
   };
-  offersCities[cityName].location = location;
   offersCities[cityName].push(elCopy);
 });
 

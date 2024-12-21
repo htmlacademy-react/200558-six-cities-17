@@ -3,13 +3,13 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import { TOffer } from '../../types/types';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../data/constant';
-import { City } from '../../types/types';
+import { Location } from '../../types/types';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  city: City;
+  city: Location;
   points: TOffer;
-  selectedPoint: number;
+  selectedPoint: string;
 };
 
 const defaultCustomIcon = new Icon({

@@ -7,13 +7,14 @@ import { PrivateStatus, Address } from '../data/constant';
 import ErrorAddressing from '../pages/errorAddressing/errorAddressing';
 import PrivateRoute from '../privateRoute';
 import { TOffer } from '../types/types';
+import { offersCities } from '../mocks/offers';
 
 export default function App({ offers }: { offers:TOffer[]}):JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         {/* <Route index element={<Favorites offers={offers} />}/> */}
-        <Route index element={<Main offersCount={4} offers={offers} />} />
+        <Route index element={<Main offersCount={4} offers={offersCities} />} />
         <Route path={Address.login} element={<Login />} />
         <Route path={Address.favorites} element={
           <PrivateRoute status={PrivateStatus.Guest}>

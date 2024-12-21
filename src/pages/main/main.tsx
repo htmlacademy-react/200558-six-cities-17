@@ -1,13 +1,20 @@
-import { offersCities, type TCard } from '../../mocks/offers';
+import { TOffer } from '../../types/types';
 import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
 import LocationsItem from '../../components/locationsItem/locationsItem';
-type MainProp = { offersCount: number; offers: TCard[] };
+type MainProp = { offersCount: number; offers: TOffer[] };
+
+let offer;
 export default function Main({ offersCount, offers }: MainProp): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
-  const [sity, setSity] = useState<string | null>('Cologne');
+  const [sity, setSity] = useState<string>('Amsterdam');
+  console.log('offers[sity] !== undefined=', offers[sity] !== undefined);
+  //offer = offers[sity] !== undefined ? [ ...offers[sity] ] : offer;
+  if (offers[sity] !== undefined) offer = [...offers[sity]];
+  // console.log('offer=', offer);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -43,39 +50,39 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            {/* <ul className="locations__list tabs__list">
+            <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={onUlClick('Paris')} to="#">
+                <Link className="locations__item-link tabs__item" onClick={() => setSity('Paris')} to="#">
                   <span>Paris</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={onUlClick('Cologne')} to="#">
+                <Link className="locations__item-link tabs__item" onClick={() => setSity('Cologne')} to="#">
                   <span>Cologne</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={onUlClick('Brussels')} to="#">
+                <Link className="locations__item-link tabs__item" onClick={() => setSity('Brussels')} to="#">
                   <span>Brussels</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item tabs__item--active" onClick={onUlClick('Amsterdam')} to="#">
+                <Link className="locations__item-link tabs__item tabs__item--active" onClick={() => setSity('Amsterdam')} to="#">
                   <span>Amsterdam</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={onUlClick('Hamburg')} to="#">
+                <Link className="locations__item-link tabs__item" onClick={() => setSity('Hamburg')} to="#">
                   <span>Hamburg</span>
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={onUlClick('Dusseldorf')} to="#">
+                <Link className="locations__item-link tabs__item" onClick={() => setSity('Dusseldorf')} to="#">
                   <span>Dusseldorf</span>
                 </Link>
               </li>
-            </ul> */}
-            <LocationsItem onClick={setSity}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
+            </ul>
+            {/* <LocationsItem onClick={setSity}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>*/}
           </section>
         </div>
         <div className="cities">
@@ -98,7 +105,7 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <Cards offers={offersCities[sity]}
+              <Cards offers={offer}
                 onHover={(id)=>{
                   setCardHover(id);
                 }}
@@ -107,9 +114,9 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map points={offersCities[sity]}
+                <Map points={offer}
                   selectedPoint={cardHover}
-                  city={offersCities[sity].location}
+                  city={offer[0].city.location}
                 />
               </section>
             </div>

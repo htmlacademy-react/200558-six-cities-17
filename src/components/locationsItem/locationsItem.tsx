@@ -6,7 +6,7 @@ export default function LocationsItem({ children, onClick }: TLocationsItem): JS
     return (
         <ul className="locations__list tabs__list">
         {
-            children.map((el: string) =>: JSX.Element (
+                children.map((el: string): JSX.Element => (
 
             <li className="locations__item">
                 <Link className="locations__item-link tabs__item" onClick={() => onClick(el)} to="#">
