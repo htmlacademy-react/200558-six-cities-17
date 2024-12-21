@@ -109,7 +109,7 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
                 onHover={(id)=>{
                   setCardHover(id);
                 }}
-                variant="vertical"
+                variant="horizontal"
               />
             </section>
             <div className="cities__right-section">
