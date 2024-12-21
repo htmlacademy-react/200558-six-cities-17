@@ -1,6 +1,6 @@
 import { TOffer, HousingRange } from '../types/types';
 
- const offers: TOffer[] = [
+const offers: TOffer[] = [
   {
     id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
     title: 'Nice, cozy, warm big bed apartment',
@@ -123,7 +123,6 @@ const offersCities:object = {};
 offers.forEach((el)=>{
   const city = el.city;
   const cityName = city.name;
-  const location = city.location;
   if (offersCities[cityName] === undefined) {
     offersCities[cityName] = [];
   }

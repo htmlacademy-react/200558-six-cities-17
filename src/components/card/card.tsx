@@ -8,7 +8,7 @@ import cls from 'classnames';
   variant: 'vertical' | 'horizontal';
 };
 
-export function Card({ offer, variant ="horizontal", onHover }: TCardProps): JSX.Element {
+export function Card({ offer, variant, onHover }: TCardProps): JSX.Element {
 
   const configs = {
     vertical: {
@@ -23,6 +23,8 @@ export function Card({ offer, variant ="horizontal", onHover }: TCardProps): JSX
     },
   } as const;
   const config = configs[variant];
+  console.log('variant=', variant);
+  
   return (
     <article
       className={`${config.class}__card place-card`}

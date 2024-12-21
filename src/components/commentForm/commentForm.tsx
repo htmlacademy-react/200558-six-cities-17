@@ -5,7 +5,6 @@ type TCommentForm = { onSubmit: (evt: string) => void };
 function CommentForm({ onSubmit }: TCommentForm): JSX.Element {
   const [text, setText] = useState<string>('');
   const [rating, setRating] = useState<number>(2);
-  console.log('rating=', rating);
 
   const onInput = (evt: react.ChangeEvent<HTMLTextAreaElement>): void => {
     setText(evt.target.value);
@@ -14,10 +13,8 @@ function CommentForm({ onSubmit }: TCommentForm): JSX.Element {
     onSubmit(text);
     evt.preventDefault();
   }
-  function onInputChange(rating: number) {
-    setRating(rating);
-    console.log('change');
-
+  function onInputChange(rat: number) {
+    setRating(rat);
   }
 
   return (

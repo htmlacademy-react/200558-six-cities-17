@@ -12,7 +12,8 @@ export default function Cards({ offers, onHover, variant }: TCardsProps):JSX.Ele
     vertical:  'cities',
     horizontal: 'favorites',
   };
-
+  console.log('cards variant=', variant);
+  
   return (
     <div className={`${config[variant]} places__list`}>
       {
