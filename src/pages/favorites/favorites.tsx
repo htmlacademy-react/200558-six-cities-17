@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Cards from '../../components/cards/cards';
-import { TOffer } from '../../types/types';
-import { TOfferProp } from '../../types/types';
 import { offersCities } from '../../mocks/offers';
-export default function Favorites({ offers }: TOfferProp):JSX.Element {
-  console.log('offers=', offers)
+export default function Favorites():JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
-  type TFilter = (el: TOffer) =>TOffer ;
+
   return (
     <div className="page">
       <header className="header">

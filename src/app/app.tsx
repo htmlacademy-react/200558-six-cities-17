@@ -22,7 +22,7 @@ export default function App({ offers }: { offers:TOffer[]}):JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={Address.offer} element={<Offer offers={offers} />} />
+        <Route path={Address.offer} element={<Offer offers={Offer} />} />
         <Route path="*" element={<ErrorAddressing/>}/>
       </Routes>
     </BrowserRouter>

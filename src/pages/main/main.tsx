@@ -3,17 +3,16 @@ import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
-import LocationsItem from '../../components/locationsItem/locationsItem';
-type MainProp = { offersCount: number; offers: TOffer[] };
+type MainProp = { offersCount: number; offers: Record<string, TOffer[]> };
 
-let offer;
+let offer: TOffer[];
 export default function Main({ offersCount, offers }: MainProp): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
   const [sity, setSity] = useState<string>('Amsterdam');
-  console.log('offers[sity] !== undefined=', offers[sity] !== undefined);
-  //offer = offers[sity] !== undefined ? [ ...offers[sity] ] : offer;
-  if (offers[sity] !== undefined) offer = [...offers[sity]];
-  // console.log('offer=', offer);
+
+  if (offers[sity] !== undefined) {
+    offer = [...offers[sity]];
+  }
 
   return (
     <div className="page page--gray page--main">

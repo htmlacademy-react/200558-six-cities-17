@@ -8,7 +8,7 @@ import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   city: Location;
-  points: TOffer;
+  points: TOffer[];
   selectedPoint: string;
 };
 
@@ -32,7 +32,7 @@ function Map(props: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      points.forEach((point) => {
+      points.forEach((point:TOffer):void => {
         const marker = new Marker({
           lat: point.location.latitude,
           lng: point.location.longitude

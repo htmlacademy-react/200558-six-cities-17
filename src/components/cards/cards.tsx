@@ -2,7 +2,7 @@ import { TOffer } from '../../types/types';
 import {Card} from '../card/card';
 
 type TCardsProps = {
-  offers: TOffer[] | {point?:object};
+  offers: TOffer[] & {point?:object};
   onHover: (id:string | null)=>void;
   variant: 'vertical' | 'horizontal';
 };
@@ -12,8 +12,7 @@ export default function Cards({ offers, onHover, variant }: TCardsProps):JSX.Ele
     vertical:  'cities',
     horizontal: 'favorites',
   };
-  console.log('cards variant=', variant);
-  
+
   return (
     <div className={`${config[variant]} places__list`}>
       {

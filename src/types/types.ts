@@ -18,8 +18,8 @@ export type TOffer = {
     favorites?: boolean;
 
 };
-export type TOfferProp ={
-    offers: TOffer;
+export type TOffersProp ={
+    offers: TOffer[];
 };
 
 export type City = {

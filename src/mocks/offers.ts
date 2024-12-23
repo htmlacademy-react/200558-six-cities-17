@@ -1,5 +1,4 @@
 import { TOffer, HousingRange } from '../types/types';
-
 const offers: TOffer[] = [
   {
     id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
@@ -117,25 +116,15 @@ const offers: TOffer[] = [
     previewImage: 'https://url-to-image/image.png'
   },
 ];
-
-const offersCities:object = {};
+const offersCities: Record<string, TOffer[]> = {};
 
 offers.forEach((el)=>{
   const city = el.city;
-  const cityName = city.name;
+  const cityName:string = city.name;
   if (offersCities[cityName] === undefined) {
     offersCities[cityName] = [];
   }
-  const elCopy = {
-    ...el,
-    point: {
-      title: el.title,
-      lat: city.latitude,
-      lng: city.longitude
-    }
-  };
-  offersCities[cityName].push(elCopy);
+  offersCities[cityName].push({...el});
 });
 
 export { offersCities, offers };
-console.log('offersCities=', offersCities);

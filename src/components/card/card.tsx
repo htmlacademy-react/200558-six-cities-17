@@ -23,8 +23,7 @@ export function Card({ offer, variant, onHover }: TCardProps): JSX.Element {
     },
   } as const;
   const config = configs[variant];
-  console.log('variant=', variant);
-  
+
   return (
     <article
       className={`${config.class}__card place-card`}

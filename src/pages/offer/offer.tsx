@@ -1,15 +1,14 @@
 import { useState } from 'react';
-import { offers, TCardsProps } from '../../mocks/offers';
 import Cards from '../../components/cards/cards';
 import CommentForm from '../../components/commentForm/commentForm';
 import { Link } from 'react-router-dom';
-export default function Offer({ cards }: TCardsProps): JSX.Element {
+import { TOffersProp } from '../../types/types';
+export default function Offer({ offers }: TOffersProp): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
   const onCommontFormSubmit = (text:string) => {
-    console.log('text=', text);
   };
   return (
-    <div className="page">
+    <div className="page" data-t={cardHover}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
