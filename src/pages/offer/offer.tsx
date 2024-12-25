@@ -4,9 +4,11 @@ import CommentForm from '../../components/commentForm/commentForm';
 import { Link } from 'react-router-dom';
 import { TOffersProp } from '../../types/types';
 export default function Offer({ offers }: TOffersProp): JSX.Element {
+
   const [cardHover, setCardHover] = useState<string | null>(null);
   const onCommontFormSubmit = (text:string) => {
   };
+
   return (
     <div className="page" data-t={cardHover}>
       <header className="header">

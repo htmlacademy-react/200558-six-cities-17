@@ -3,7 +3,7 @@ import {Card} from '../card/card';
 
 type TCardsProps = {
   offers: TOffer[] & {point?:object};
-  onHover: (id:string | null)=>void;
+  onHover?: (id:string | null)=>void;
   variant: 'vertical' | 'horizontal';
 };
 

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Cards from '../../components/cards/cards';
-import { offersCities } from '../../mocks/offers';
-export default function Favorites():JSX.Element {
+import { TOffersCities } from '../../types/types';
+
+export default function Favorites({ offers }: TOffersCities):JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
 
   return (
@@ -51,7 +52,7 @@ export default function Favorites():JSX.Element {
                 </div>
                 <div className="favorites__places">
                   <Cards
-                    offers={offersCities.Amsterdam}
+                    offers={offers.Amsterdam}
                     variant='horizontal'
                   />
                   {/* <article className="favorites__card place-card">
@@ -133,7 +134,7 @@ export default function Favorites():JSX.Element {
                 </div>
                 <div className="favorites__places">
                   <Cards
-                    offers={offersCities.Cologne}
+                    offers={offers.Cologne}
                     variant='horizontal'
                   />
                   {/* <article className="favorites__card place-card">

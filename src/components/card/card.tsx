@@ -4,11 +4,11 @@ import cls from 'classnames';
 
  type TCardProps = {
    offer: TOffer & { point?:object};
-  onHover: (id: string | null) => void;
+  onHover?: (id: string | null) => void;
   variant: 'vertical' | 'horizontal';
 };
 
-export function Card({ offer, variant, onHover }: TCardProps): JSX.Element {
+export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Element {
 
   const configs = {
     vertical: {

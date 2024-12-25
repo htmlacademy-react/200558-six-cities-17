@@ -32,3 +32,5 @@ export type Location = {
     longitude: number;
     zoom: number;
 };
+
+export type TOffersCities = Record<string, TOffer[]>;

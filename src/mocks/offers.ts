@@ -116,15 +116,6 @@ const offers: TOffer[] = [
     previewImage: 'https://url-to-image/image.png'
   },
 ];
-const offersCities: Record<string, TOffer[]> = {};
 
-offers.forEach((el)=>{
-  const city = el.city;
-  const cityName:string = city.name;
-  if (offersCities[cityName] === undefined) {
-    offersCities[cityName] = [];
-  }
-  offersCities[cityName].push({...el});
-});
 
-export { offersCities, offers };
+export { offers };
