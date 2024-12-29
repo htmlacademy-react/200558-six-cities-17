@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { TCardsProps } from '../../mocks/offers';
-import Cards from '../../cards/cards';
-import CommentForm from '../../commentForm/commentForm';
+import Cards from '../../components/cards/cards';
+import CommentForm from '../../components/commentForm/commentForm';
 import { Link } from 'react-router-dom';
-export default function Offer({ cards }: TCardsProps): JSX.Element {
+import { TOffersProp } from '../../types/types';
+export default function Offer({ offers }: TOffersProp): JSX.Element {
+
   const [cardHover, setCardHover] = useState<string | null>(null);
   const onCommontFormSubmit = (text:string) => {
-    console.log('text=', text);
   };
+
   return (
-    <div className="page">
+    <div className="page" data-t={cardHover}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -184,7 +185,7 @@ export default function Offer({ cards }: TCardsProps): JSX.Element {
                     </div>
                   </li>
                 </ul>
-                <CommentForm onSubmit={onCommontFormSubmit}/>
+                <CommentForm onSubmit={onCommontFormSubmit} key="CommentForm"/>
               </section>
             </div>
           </div>
@@ -194,8 +195,9 @@ export default function Offer({ cards }: TCardsProps): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <Cards cards={cards} classBlock='cities'
-                classFraper="cities__places-list tabs__content" onHover={(id) => {
+              <Cards offers={offers}
+                variant='vertical'
+                onHover={(id) => {
                   setCardHover(id);
                 }}
               />

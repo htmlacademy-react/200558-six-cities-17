@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Cards from '../../components/cards/cards';
+import { TOffersCities } from '../../types/types';
 
-export default function Favorites():JSX.Element {
+export default function Favorites({ offers }: TOffersCities):JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
+
   return (
     <div className="page">
       <header className="header">
@@ -47,7 +51,11 @@ export default function Favorites():JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <article className="favorites__card place-card">
+                  <Cards
+                    offers={offers.Amsterdam}
+                    variant='horizontal'
+                  />
+                  {/* <article className="favorites__card place-card">
                     <div className="place-card__mark">
                       <span>Premium</span>
                     </div>
@@ -112,7 +120,7 @@ export default function Favorites():JSX.Element {
                       </h2>
                       <p className="place-card__type">Room</p>
                     </div>
-                  </Linkrticle>
+                  </article> */}
                 </div>
               </li>
 
@@ -125,7 +133,11 @@ export default function Favorites():JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <article className="favorites__card place-card">
+                  <Cards
+                    offers={offers.Cologne}
+                    variant='horizontal'
+                  />
+                  {/* <article className="favorites__card place-card">
                     <div className="favorites__image-wrapper place-card__image-wrapper">
                       <Link to="#">
                         <img className="place-card__image" src="img/apartment-small-04.jpg" width="150" height="110" alt="Place image"/>
@@ -155,7 +167,7 @@ export default function Favorites():JSX.Element {
                       </h2>
                       <p className="place-card__type">Apartment</p>
                     </div>
-                  </article>
+                  </article> */}
                 </div>
               </li>
             </ul>
