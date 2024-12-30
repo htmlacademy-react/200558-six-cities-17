@@ -3,13 +3,14 @@ import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
+import LocationsItem from '../../components/locationsItem/locationsItem';
 type MainProp = { offersCount: number; offers: Record<string, TOffer[]> };
 
 let offer: TOffer[];
 export default function Main({ offersCount, offers }: MainProp): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
   const [sity, setSity] = useState<string>('Amsterdam');
-
+  console.log('sity=', sity);
   if (offers[sity] !== undefined) {
     offer = [...offers[sity]];
   }
@@ -49,7 +50,7 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
+            {/* <ul className="locations__list tabs__list">
               <li className="locations__item">
                 <Link className="locations__item-link tabs__item" onClick={() => setSity('Paris')} to="#">
                   <span>Paris</span>
@@ -80,8 +81,8 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
                   <span>Dusseldorf</span>
                 </Link>
               </li>
-            </ul>
-            {/* <LocationsItem onClick={setSity}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>*/}
+            </ul> */}
+            <LocationsItem onClick={setSity}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
           </section>
         </div>
         <div className="cities">

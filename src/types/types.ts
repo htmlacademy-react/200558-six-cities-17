@@ -18,7 +18,7 @@ export type TOffer = {
     favorites?: boolean;
 
 };
-export type TOffersProp ={
+export type TOffersProp = {
     offers: TOffer[];
 };
 
@@ -32,5 +32,8 @@ export type Location = {
     longitude: number;
     zoom: number;
 };
+export type TChildrenJsx = { children: JSX.Element };
+export type TChildrenString = { children: string };
+export type TChildrenStrings = { children: string[] };
 
 export type TOffersCities = Record<string, TOffer[]>;
