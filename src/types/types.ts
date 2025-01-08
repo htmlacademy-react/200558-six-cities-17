@@ -37,3 +37,4 @@ export type TChildrenString = { children: string };
 export type TChildrenStrings = { children: string[] };
 
 export type TOffersCities = Record<string, TOffer[]>;
+export type TOffersCitiesProps ={offers: TOffersCities};

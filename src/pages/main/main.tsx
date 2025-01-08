@@ -1,13 +1,13 @@
-import { TOffer } from '../../types/types';
+import { TOffer,TOffersCities } from '../../types/types';
 import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
 import LocationsItem from '../../components/locationsItem/locationsItem';
-type MainProp = { offersCount: number; offers: Record<string, TOffer[]> };
+type MainProp = { offers: TOffersCities };
 
 let offer: TOffer[];
-export default function Main({ offersCount, offers }: MainProp): JSX.Element {
+export default function Main({offers }: MainProp): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
   const [sity, setSity] = useState<string>('Amsterdam');
   console.log('sity=', sity);
@@ -89,7 +89,7 @@ export default function Main({ offersCount, offers }: MainProp): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers[sity].length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Cards from '../../components/cards/cards';
-import { TOffersCities } from '../../types/types';
+import { TOffersCitiesProps } from '../../types/types';
 
-export default function Favorites({ offers }: TOffersCities):JSX.Element {
+export default function Favorites({ offers }: TOffersCitiesProps):JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
 
   return (
