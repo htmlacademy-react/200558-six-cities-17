@@ -4,12 +4,16 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
 import LocationsItem from '../../components/locationsItem/locationsItem';
+import { useDispatch } from 'react-redux';
+import { setSity } from '../../action';
+import dispatch from '../../reducer';
+
+
 type MainProp = { offers: TOffersCities };
 
 let offer: TOffer[];
 export default function Main({offers }: MainProp): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
-  const [sity, setSity] = useState<string>('Amsterdam');
   console.log('sity=', sity);
   if (offers[sity] !== undefined) {
     offer = [...offers[sity]];
@@ -82,7 +86,7 @@ export default function Main({offers }: MainProp): JSX.Element {
                 </Link>
               </li>
             </ul> */}
-            <LocationsItem onClick={setSity}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
+            <LocationsItem onClick={(sity)=>dispatch<typeof s>(setSity(sity))}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
           </section>
         </div>
         <div className="cities">
