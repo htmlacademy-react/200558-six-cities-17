@@ -32,6 +32,9 @@ export type Location = {
     longitude: number;
     zoom: number;
 };
+
+export type TReducer = { offers: TOffer[] };
+
 export type TChildrenJsx = { children: JSX.Element };
 export type TChildrenString = { children: string };
 export type TChildrenStrings = { children: string[] };

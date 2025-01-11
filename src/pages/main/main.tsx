@@ -1,23 +1,21 @@
-import { TOffer,TOffersCities } from '../../types/types';
+import { TOffer,TOffersCities, TReducer } from '../../types/types';
 import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
 import LocationsItem from '../../components/locationsItem/locationsItem';
-import { useDispatch } from 'react-redux';
 import { setSity } from '../../action';
-import dispatch from '../../reducer';
+import useAppDispatch from '../../reducer';
+import {useAppSelector} from '../../reducer';
 
 
 type MainProp = { offers: TOffersCities };
 
 let offer: TOffer[];
 export default function Main({offers }: MainProp): JSX.Element {
+  const dispatch = useAppDispatch();
   const [cardHover, setCardHover] = useState<string | null>(null);
-  console.log('sity=', sity);
-  if (offers[sity] !== undefined) {
-    offer = [...offers[sity]];
-  }
+  offer = useAppSelector((state) => state.offers);
 
   return (
     <div className="page page--gray page--main">
@@ -86,14 +84,14 @@ export default function Main({offers }: MainProp): JSX.Element {
                 </Link>
               </li>
             </ul> */}
-            <LocationsItem onClick={(sity)=>dispatch<typeof s>(setSity(sity))}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
+            <LocationsItem onClick={(sity)=>dispatch(setSity(sity))}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers[sity].length} places to stay in Amsterdam</b>
+              <b className="places__found">{offer.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>

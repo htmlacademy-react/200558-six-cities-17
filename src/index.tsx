@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom/client';
 import App from './app/app.tsx';
 import { offers} from './mocks/offers.ts';
 import { Provider } from 'react-redux';
-import {reducer} from 'reducer.ts';
+import {store} from './reducer.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <Provider store={reducer}>
+  <Provider store={store}>
     <React.StrictMode>
       <App offers={offers}/>
     </React.StrictMode>
