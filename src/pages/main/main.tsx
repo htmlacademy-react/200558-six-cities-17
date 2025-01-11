@@ -1,4 +1,4 @@
-import { TOffer,TOffersCities, TReducer } from '../../types/types';
+import { TOffer } from '../../types/types';
 import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,11 +8,9 @@ import { setSity } from '../../action';
 import useAppDispatch from '../../reducer';
 import {useAppSelector} from '../../reducer';
 
-
-type MainProp = { offers: TOffersCities };
-
 let offer: TOffer[];
-export default function Main({offers }: MainProp): JSX.Element {
+
+export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const [cardHover, setCardHover] = useState<string | null>(null);
   offer = useAppSelector((state) => state.offers);

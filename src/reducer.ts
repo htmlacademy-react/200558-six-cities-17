@@ -1,6 +1,6 @@
 import { createReducer, configureStore } from '@reduxjs/toolkit';
 import { offersCities } from './mocks/offers';
-import { TReducer } from './types/types';
+import { TReducer, TOffer } from './types/types';
 import { setSity } from './action';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -30,7 +30,6 @@ export const store = configureStore({ reducer });
 type AppDispatch = typeof store.dispatch;
 //const dispatch = store.dispatch;
 const dispatch = () => useDispatch<AppDispatch>();
-type TGetState = (state: TReducer) => any;
 export const useAppSelector: TypedUseSelectorHook<TReducer> = useSelector;
 
 export default dispatch;
