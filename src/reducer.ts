@@ -1,16 +1,19 @@
 import { createReducer, configureStore } from '@reduxjs/toolkit';
 import { offersCities } from './mocks/offers';
-import { TReducer, TOffer } from './types/types';
+import { TReducer, TOffer, TCity } from './types/types';
 import { setSity } from './action';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { TypedUseSelectorHook } from 'react-redux';
+import { offers } from './mocks/offers';
 
 type TinitialState = {
   offers: TOffer[];
+  city: TCity; // Add a type for city
 };
 const initialState: TinitialState = {
-  offers: offersCities['Amsterdam'],
+  offers: offers,
+  city: 'Paris',
 };
 
 // const reducer = createReducer(initialState, (builder) => {
@@ -19,8 +22,8 @@ const initialState: TinitialState = {
 // });
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(setSity, (state, { payload }): TReducer => {
-    state.offers = offersCities[payload] || state.offers;
+  builder.addCase(setSity, (state, { payload }) => {
+    state.city = payload;
     return state;
   });
 });
@@ -30,6 +33,7 @@ export const store = configureStore({ reducer });
 type AppDispatch = typeof store.dispatch;
 //const dispatch = store.dispatch;
 const dispatch = () => useDispatch<AppDispatch>();
-export const useAppSelector: TypedUseSelectorHook<TReducer> = useSelector;
+export const useAppSelector: TypedUseSelectorHook<TinitialState> = useSelector;
+export const getOffersByCity = (state:TinitialState) => state.offers.filter(({city}) => city.name === state.city);
 
 export default dispatch;

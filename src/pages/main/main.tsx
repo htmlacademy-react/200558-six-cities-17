@@ -6,14 +6,14 @@ import Map from '../../components/map/map';
 import LocationsItem from '../../components/locationsItem/locationsItem';
 import { setSity } from '../../action';
 import useAppDispatch from '../../reducer';
-import {useAppSelector} from '../../reducer';
+import { useAppSelector, getOffersByCity } from '../../reducer';
 
 let offer: TOffer[];
 
 export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const [cardHover, setCardHover] = useState<string | null>(null);
-  offer = useAppSelector((state) => state.offers);
+  offer = useAppSelector(getOffersByCity);
 
   return (
     <div className="page page--gray page--main">
@@ -50,38 +50,6 @@ export default function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            {/* <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={() => setSity('Paris')} to="#">
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={() => setSity('Cologne')} to="#">
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={() => setSity('Brussels')} to="#">
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item tabs__item--active" onClick={() => setSity('Amsterdam')} to="#">
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={() => setSity('Hamburg')} to="#">
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" onClick={() => setSity('Dusseldorf')} to="#">
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
-            </ul> */}
             <LocationsItem onClick={(sity)=>dispatch(setSity(sity))}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
           </section>
         </div>

@@ -4,7 +4,7 @@ export default function ReviewsList({ children }: TChildrenStrings){
   return (
     <ul className="reviews__list">
       {
-        children.map((comment: string) => (<ReviewsItem>{comment}</ReviewsItem>))
+        children.map((comment: string, index) => (<ReviewsItem key={index}>{comment}</ReviewsItem>))
       }
     </ul>
   );
