@@ -8,9 +8,9 @@ export default function LocationsItem({ children, onClick }: TLocationsItem): JS
         children.map((el: string): JSX.Element => (
 
           <li className="locations__item" key={el}>
-            <Link className="locations__item-link tabs__item" onClick={() => onClick(el)} to="#">
+            <div className="locations__item-link tabs__item" onClick={() => onClick(el)} to="#">
               <span>{el}</span>
-            </Link>
+            </div>
           </li>
 
         ))

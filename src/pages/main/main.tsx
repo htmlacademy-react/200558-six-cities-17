@@ -51,7 +51,7 @@ export default function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsItem onClick={(sity)=>dispatch(setSity(sity))}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
+            <LocationsItem onClick={(сity)=>dispatch(setSity(сity))}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
           </section>
         </div>
         <div className="cities">
