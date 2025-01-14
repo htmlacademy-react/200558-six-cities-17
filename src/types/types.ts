@@ -1,7 +1,8 @@
 
 export enum HousingRange {
-    apartment = 'Apartment',
-    room = 'Room'
+  apartment = 'apartment',
+  room = 'room',
+  house ='house',
 }
 
 export type TOffer = {

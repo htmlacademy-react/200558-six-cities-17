@@ -9,7 +9,7 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   city: Location;
   points: TOffer[];
-  selectedPoint: string;
+  selectedPoint: string | null;
 };
 
 const defaultCustomIcon = new Icon({

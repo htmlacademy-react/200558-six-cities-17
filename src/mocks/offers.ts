@@ -1,4 +1,4 @@
-import { TOffer, HousingRange,TOffersCities } from '../types/types';
+import { TOffer,TOffersCities } from '../types/types';
 const offers: TOffer[] = [
   {
     id: '73b49e3f-b065-4dc9-9acd-319b0404dd8c',
