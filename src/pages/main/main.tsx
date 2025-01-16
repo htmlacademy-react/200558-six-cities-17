@@ -15,6 +15,7 @@ export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const [cardHover, setCardHover] = useState<string | null>(null);
   offer = useAppSelector(getOffersByCity);
+  console.clear();
   console.log('offer=', offer);
   return (
     <div className="page page--gray page--main">

@@ -23,8 +23,7 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
   // }
 
   if (!offer) {
-
-    return <Navigate to="/404"/>;
+    return <Navigate to="*"/>;
   }
 
   const RARING_WIDTH = `${offer?.rating / 5 * 100}%`;
