@@ -1,17 +1,33 @@
 import { useState } from 'react';
 import Cards from '../../components/cards/cards';
 import CommentForm from '../../components/commentForm/commentForm';
-import { Link } from 'react-router-dom';
-import { TOffersProp } from '../../types/types';
+import { Link, Navigate, useParams } from 'react-router-dom';
+import { TOffer, TOffersProp } from '../../types/types';
 import OfferInsideList from '../../components/offerInsideList/offerInsideList';
 import OfferGallery from '../../components/offerGallery/offerGallery';
 import ReviewsList from '../../components/reviewsList/reviewsList';
+import { offers } from '../../mocks/offers';
 
 export default function Offer({ offers }: TOffersProp): JSX.Element {
 
   const [cardHover, setCardHover] = useState<string | null>(null);
-  const onCommontFormSubmit = (text:string) => {
+  const onCommontFormSubmit = (text: string) => {
   };
+  const ID_OFFER = useParams().id;
+  const offer = offers.find(({ id }) => id === ID_OFFER);
+  console.log('offer=', offer);
+  // const navigate = useNavigate();
+  // if (!offer) {
+
+  //   navigate('/');
+  // }
+
+  if (!offer) {
+
+    return <Navigate to="/404"/>;
+  }
+
+  const RARING_WIDTH = `${offer?.rating / 5 * 100}%`;
 
   return (
     <div className="page" data-t={cardHover}>
@@ -71,23 +87,24 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
               {
                 [
                   ['img/room.jpg', 'Photo studio'],
-                  ['img/apartment-01.jpg','Photo studio'],
-                  ['img/apartment-02.jpg','Photo studio'],
-                  ['img/apartment-03.jpg','Photo studio'],
-                  ['img/studio-01.jpg','Photo studio'],
-                  ['img/apartment-01.jpg','Photo studio']
+                  ['img/apartment-01.jpg', 'Photo studio'],
+                  ['img/apartment-02.jpg', 'Photo studio'],
+                  ['img/apartment-03.jpg', 'Photo studio'],
+                  ['img/studio-01.jpg', 'Photo studio'],
+                  ['img/apartment-01.jpg', 'Photo studio']
                 ]
               }
             </OfferGallery>
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              {offer?.isPremium &&
+                <div className="offer__mark">
+                  <span>Premium</span>
+                </div>}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                      Beautiful &amp; luxurious studio at great location
+                  {offer?.title}
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -98,24 +115,24 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: '80%' }}></span>
+                  <span style={{ width: RARING_WIDTH }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{offer?.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                      Apartment
+                  Apartment
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                      3 Bedrooms
+                  3 Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                      Max 4 adults
+                  Max 4 adults
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;120</b>
+                <b className="offer__price-value">&euro;{offer?.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
@@ -175,18 +192,18 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
                     <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="offer__user-name">
-                        Angelina
+                    Angelina
                   </span>
                   <span className="offer__user-status">
-                        Pro
+                    Pro
                   </span>
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
                   </p>
                   <p className="offer__text">
-                        An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
                   </p>
                 </div>
               </div>
@@ -216,8 +233,8 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
                     </div>
                   </li>
                 </ul> */}
-                <ReviewsList>{['A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.','wefw']}</ReviewsList>
-                <CommentForm onSubmit={onCommontFormSubmit} key="CommentForm"/>
+                <ReviewsList>{['A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.', 'wefw']}</ReviewsList>
+                <CommentForm onSubmit={onCommontFormSubmit} key="CommentForm" />
               </section>
             </div>
           </div>

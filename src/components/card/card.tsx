@@ -9,7 +9,6 @@ import cls from 'classnames';
 };
 
 export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Element {
-
   const configs = {
     vertical: {
       class: 'cities',
@@ -23,7 +22,7 @@ export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Elem
     },
   } as const;
   const config = configs[variant];
-
+  const RARING_WIDTH = `${offer?.rating / 5 * 100}%`;
   return (
     <article
       className={`${config.class}__card place-card`}
@@ -34,7 +33,7 @@ export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Elem
         <span>Premium</span>
       </div>
       <div className={`${config.class}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${offer.id}`}>
+        <a href={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -42,7 +41,7 @@ export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Elem
             height={config.height}
             alt={offer.title}
           />
-        </Link>
+        </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -58,12 +57,12 @@ export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Elem
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: RARING_WIDTH }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <a href={'offer/'+offer.id}>{offer.title}</a>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

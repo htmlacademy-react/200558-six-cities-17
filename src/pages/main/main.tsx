@@ -1,4 +1,5 @@
 import { TOffer } from '../../types/types';
+import { СITIES } from '../../data/constant';
 import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -14,7 +15,7 @@ export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const [cardHover, setCardHover] = useState<string | null>(null);
   offer = useAppSelector(getOffersByCity);
-
+  console.log('offer=', offer);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -50,7 +51,7 @@ export default function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsItem onClick={(сity)=>dispatch(setSity(сity))}>{['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf']}</LocationsItem>
+            <LocationsItem onClick={(сity) => dispatch(setSity(сity))}>{СITIES}</LocationsItem>
           </section>
         </div>
         <div className="cities">
