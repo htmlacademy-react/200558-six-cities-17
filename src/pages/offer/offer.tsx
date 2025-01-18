@@ -6,7 +6,7 @@ import { TOffer, TOffersProp } from '../../types/types';
 import OfferInsideList from '../../components/offerInsideList/offerInsideList';
 import OfferGallery from '../../components/offerGallery/offerGallery';
 import ReviewsList from '../../components/reviewsList/reviewsList';
-import { offers } from '../../mocks/offers';
+import { offers, offerPages } from '../../mocks/offers';
 
 export default function Offer({ offers }: TOffersProp): JSX.Element {
 
@@ -27,6 +27,13 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
   }
 
   const RARING_WIDTH = `${offer?.rating / 5 * 100}%`;
+  const offerPage  = offerPages.find(({ id }) => id === ID_OFFER);
+
+
+
+  console.log('offerPage=', offerPage);
+  const imgUrl = offerPage?.images.map((url) => [url, offerPage.description]);
+  //const host =  offerPage.host;
 
   return (
     <div className="page" data-t={cardHover}>
@@ -83,27 +90,18 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
               </div>
             </div> */}
             <OfferGallery>
-              {
-                [
-                  ['img/room.jpg', 'Photo studio'],
-                  ['img/apartment-01.jpg', 'Photo studio'],
-                  ['img/apartment-02.jpg', 'Photo studio'],
-                  ['img/apartment-03.jpg', 'Photo studio'],
-                  ['img/studio-01.jpg', 'Photo studio'],
-                  ['img/apartment-01.jpg', 'Photo studio']
-                ]
-              }
+              {imgUrl}
             </OfferGallery>
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {offer?.isPremium &&
+              {offerPage?.isPremium &&
                 <div className="offer__mark">
                   <span>Premium</span>
                 </div>}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  {offer?.title}
+                  {offerPage?.title}
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -117,7 +115,7 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
                   <span style={{ width: RARING_WIDTH }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">{offer?.rating}</span>
+                <span className="offer__rating-value rating__value">{offerPage?.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
@@ -131,7 +129,7 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{offer?.price}</b>
+                <b className="offer__price-value">&euro;{offerPage?.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">
@@ -169,26 +167,14 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
                   </li>
                 </ul> */}
                 <OfferInsideList>
-                  {[
-                    'Wi-Fi',
-                    'Washing machine',
-                    'Towels',
-                    'Heating',
-                    'Coffee machine',
-                    'Baby seat',
-                    'Kitchen',
-                    'Kitchen',
-                    'Dishwasher',
-                    'Cabel TV',
-                    'Fridge'
-                  ]}
+                  {offerPage?.goods.map(text=>text)}
                 </OfferInsideList>
               </div>
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
+                    <img className="offer__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="offer__user-name">
                     Angelina
