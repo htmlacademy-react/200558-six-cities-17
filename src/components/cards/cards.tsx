@@ -9,7 +9,7 @@ type TCardsProps = {
 
 export default function Cards({ offers, onHover, variant }: TCardsProps):JSX.Element {
   const config = {
-    vertical:  'cities',
+    vertical:  'cities__places-list',
     horizontal: 'favorites',
   };
 

@@ -33,7 +33,7 @@ export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Elem
         <span>Premium</span>
       </div>
       <div className={`${config.class}__image-wrapper place-card__image-wrapper`}>
-        <a href={`/offer/${offer.id}`}>
+        <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -41,7 +41,7 @@ export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Elem
             height={config.height}
             alt={offer.title}
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -62,7 +62,7 @@ export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Elem
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={'offer/'+offer.id}>{offer.title}</a>
+          <Link to={'offer/'+offer.id}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
