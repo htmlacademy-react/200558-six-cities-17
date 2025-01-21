@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
 import LocationsItem from '../../components/locationsItem/locationsItem';
-import { setSity } from '../../action';
-import useAppDispatch from '../../reducer';
-import { useAppSelector, getOffersByCity } from '../../reducer';
+import { setCity } from '../../store/action';
+import useAppDispatch from '../../store/reducer';
+import { useAppSelector, getOffersByCity } from '../../store/reducer';
 import Header from '../../components/header/header';
 
 let offer: TOffer[];
@@ -25,7 +25,7 @@ export default function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsItem onClick={(сity) => dispatch(setSity(сity))}>{СITIES_NAME}</LocationsItem>
+            <LocationsItem onClick={(сity) => dispatch(setCity(сity))}>{СITIES_NAME}</LocationsItem>
           </section>
         </div>
         <div className="cities">

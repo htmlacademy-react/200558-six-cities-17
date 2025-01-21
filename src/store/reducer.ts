@@ -1,11 +1,11 @@
 import { createReducer, configureStore } from '@reduxjs/toolkit';
-import { offersCities } from './mocks/offers';
-import { TReducer, TOffer, TCity } from './types/types';
-import { setSity } from './action';
+import { offersCities } from '../mocks/offers';
+import { TReducer, TOffer, TCity } from '../types/types';
+import { setCity } from './action';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { TypedUseSelectorHook } from 'react-redux';
-import { offers } from './mocks/offers';
+import { offers } from '../mocks/offers';
 
 type TinitialState = {
   offers: TOffer[];
@@ -22,7 +22,7 @@ const initialState: TinitialState = {
 // });
 
 const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(setSity, (state, { payload }) => {
+  builder.addCase(setCity, (state, { payload }) => {
     state.city = payload;
     return state;
   });

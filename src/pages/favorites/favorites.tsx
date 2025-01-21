@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 import Cards from '../../components/cards/cards';
 import { TOffersCitiesProps } from '../../types/types';
 import Header from '../../components/header/header';
+import { useAppSelector } from '../../store/reducer';
+import { getOffersByCity } from '../../store/reducer';
 
-export default function Favorites({ offers }: TOffersCitiesProps):JSX.Element {
+
+export default function Favorites():JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
+  const offers = useAppSelector(getOffersByCity);
 
   return (
     <div className="page">
