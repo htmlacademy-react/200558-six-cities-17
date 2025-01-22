@@ -2,9 +2,8 @@ import { TOffer } from '../../types/types';
 import { СITIES_NAME } from '../../data/constant';
 import Cards from '../../components/cards/cards';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Map from '../../components/map/map';
-import LocationsItem from '../../components/locationsItem/locationsItem';
+import Locations from '../../components/locations/locations';
 import { setCity } from '../../store/action';
 import useAppDispatch from '../../store/reducer';
 import { useAppSelector, getOffersByCity } from '../../store/reducer';
@@ -25,7 +24,7 @@ export default function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsItem onClick={(сity) => dispatch(setCity(сity))}>{СITIES_NAME}</LocationsItem>
+            <Locations onClick={(сity) => dispatch(setCity(сity))}>{СITIES_NAME}</Locations>
           </section>
         </div>
         <div className="cities">

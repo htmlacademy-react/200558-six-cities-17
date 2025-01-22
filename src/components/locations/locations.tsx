@@ -1,9 +1,9 @@
 import { JSX } from 'react';
 import { TCity } from '../../types/types';
 
-type TLocationsItem = { children: TCity[]; onClick: (el: TCity)=>void };
+type TLocations = { children: TCity[]; onClick: (el: TCity)=>void };
 
-export default function LocationsItem({ children, onClick }: TLocationsItem): JSX.Element {
+export default function Locations({ children, onClick }: TLocations): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
       {
