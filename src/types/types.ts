@@ -51,3 +51,4 @@ export type TOffersCities = Record<string, TOffer[]>;
 //   | 'Dusseldorf';
 
 export type TCity = typeof СITIES[number];
+export type TCities = typeof СITIES;

@@ -1,5 +1,5 @@
 import { TOffer } from '../../types/types';
-import { СITIES_NAME } from '../../data/constant';
+import { СITIES } from '../../data/constant';
 import Cards from '../../components/cards/cards';
 import { useState } from 'react';
 import Map from '../../components/map/map';
@@ -24,7 +24,7 @@ export default function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <Locations onClick={(сity) => dispatch(setCity(сity))}>{СITIES_NAME}</Locations>
+            <Locations onClick={(сity) => dispatch(setCity(сity))} cities={СITIES} />
           </section>
         </div>
         <div className="cities">

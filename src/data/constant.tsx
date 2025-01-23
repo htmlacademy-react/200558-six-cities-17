@@ -13,12 +13,11 @@ export enum PrivateStatus {
   Unknown = 'UNKNOWN'
 }
 
- const СITIES:any = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
- export type TCity = typeof СITIES[number];
+const СITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
-const СITIES_NAME:TCity = СITIES;
+//const СITIES: TCity[] = [...СITIES_TYPE] as const;
 
-export { СITIES, СITIES_NAME };
+export { СITIES };
 
 export const URL_MARKER_DEFAULT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';

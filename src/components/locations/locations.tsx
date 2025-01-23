@@ -1,17 +1,20 @@
 import { JSX } from 'react';
-import { TCity } from '../../types/types';
+import { TCity, TCities } from '../../types/types';
 
-type TLocations = { children: TCity[]; onClick: (el: TCity)=>void };
+type TLocations = {
+  cities: TCities;
+  onClick: (el: TCity)=>void;
+};
 
-export default function Locations({ children, onClick }: TLocations): JSX.Element {
+export default function Locations({ cities, onClick }: TLocations): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
       {
-        children.map((el): JSX.Element => (
+        cities.map((citie): JSX.Element => (
 
-          <li className="locations__item" key={el}>
-            <div className="locations__item-link tabs__item" onClick={() => onClick(el)}>
-              <span>{el}</span>
+          <li className="locations__item" key={citie}>
+            <div className="locations__item-link tabs__item" onClick={() => onClick(citie)}>
+              <span>{citie}</span>
             </div>
           </li>
 
