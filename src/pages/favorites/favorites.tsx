@@ -4,7 +4,7 @@ import Cards from '../../components/cards/cards';
 import { TOffersCitiesProps } from '../../types/types';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../store/reducer';
-import { getOffersByCity } from '../../store/reducer';
+import { getOffersByCity } from '../../store/selectors';
 
 
 export default function Favorites():JSX.Element {

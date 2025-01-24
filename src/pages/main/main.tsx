@@ -6,8 +6,9 @@ import Map from '../../components/map/map';
 import Locations from '../../components/locations/locations';
 import { setCity } from '../../store/action';
 import useAppDispatch from '../../store/reducer';
-import { useAppSelector, getOffersByCity } from '../../store/reducer';
+import { useAppSelector } from '../../store/reducer';
 import Header from '../../components/header/header';
+import {getOffersByCity} from '../../store/selectors';
 
 let offer: TOffer[];
 

@@ -34,6 +34,11 @@ export type Location = {
   zoom: number;
 };
 
+export  type TinitialState = {
+  offers: TOffer[];
+  city: TCity; // Add a type for city
+};
+
 export type TReducer = { offers: TOffer[] };
 
 export type TChildrenJsx = { children: JSX.Element };

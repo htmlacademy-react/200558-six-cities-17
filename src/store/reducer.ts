@@ -6,11 +6,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { TypedUseSelectorHook } from 'react-redux';
 import { offers } from '../mocks/offers';
+import { TinitialState } from '../types/types';
 
-type TinitialState = {
-  offers: TOffer[];
-  city: TCity; // Add a type for city
-};
 const initialState: TinitialState = {
   offers: offers,
   city: 'Paris',
@@ -34,6 +31,5 @@ type AppDispatch = typeof store.dispatch;
 //const dispatch = store.dispatch;
 const dispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<TinitialState> = useSelector;
-export const getOffersByCity = (state:TinitialState) => state.offers.filter(({city}) => city.name === state.city);
 
 export default dispatch;
