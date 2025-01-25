@@ -1,11 +1,15 @@
 import ReviewsItem from '../reviewsItem/reviewsItem';
-import { TChildrenStrings } from '../../types/types';
-export default function ReviewsList({ children }: TChildrenStrings){
+
+type TReviewsListProps = {
+  data: {
+    comment: string;
+    id: string;
+  }[];
+};
+export default function ReviewsList({ data }: TReviewsListProps):JSX.Element {
   return (
     <ul className="reviews__list">
-      {
-        children.map((comment: string, index) => (<ReviewsItem key={index}>{comment}</ReviewsItem>))
-      }
+      {data.map(({ comment, id }) => (<ReviewsItem key={id}>{comment}</ReviewsItem>))}
     </ul>
   );
 }

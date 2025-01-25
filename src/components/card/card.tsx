@@ -29,7 +29,7 @@ export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Elem
       onMouseEnter={() => onHover(offer.id)}
       onMouseLeave={() => onHover(null)}
     >
-      <div className="place-card__mark" style={{ display: offer.isPremium || 'none'}}>
+      <div className="place-card__mark" style={{ display: offer.isPremium ? 'block' : 'none'}}>
         <span>Premium</span>
       </div>
       <div className={`${config.class}__image-wrapper place-card__image-wrapper`}>
@@ -62,7 +62,7 @@ export function Card({ offer, variant, onHover = ()=>{} }: TCardProps): JSX.Elem
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={'offer/'+offer.id}>{offer.title}</Link>
+          <Link to={`offer/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

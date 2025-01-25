@@ -16,7 +16,7 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
   const onCommontFormSubmit = (text: string) => {
   };
-
+  const comments = [{ comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.', id: '1' }, { comment: 'wefw', id: '2' }];
   return (
     <div className="page" data-t={cardHover}>
       <Header isAuthorized />
@@ -193,7 +193,7 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
                     </div>
                   </li>
                 </ul> */}
-                <ReviewsList>{['A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.', 'wefw']}</ReviewsList>
+                <ReviewsList data={comments}/>
                 <CommentForm onSubmit={onCommontFormSubmit} key="CommentForm" />
               </section>
             </div>
