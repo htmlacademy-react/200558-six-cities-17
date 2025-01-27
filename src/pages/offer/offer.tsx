@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import Cards from '../../components/cards/cards';
 import CommentForm from '../../components/commentForm/commentForm';
-import { Link, Navigate, useParams } from 'react-router-dom';
-import { TOffer, TOffersProp } from '../../types/types';
+import {TOffersProp} from '../../types/types';
 import OfferInsideList from '../../components/offerInsideList/offerInsideList';
 import OfferGallery from '../../components/offerGallery/offerGallery';
 import ReviewsList from '../../components/reviewsList/reviewsList';
-import { offers, offerPages } from '../../mocks/offers';
 import Header from '../../components/header/header';
 
 
