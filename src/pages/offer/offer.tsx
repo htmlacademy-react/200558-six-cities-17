@@ -4,7 +4,7 @@ import OfferInsideList from '../../components/offerInsideList/offerInsideList';
 import OfferGallery from '../../components/offerGallery/offerGallery';
 import ReviewsList from '../../components/reviewsList/reviewsList';
 import Header from '../../components/header/header';
-import { getOfferById } from '../../store/selectors';
+import { useOffersByCity } from '../../store/selectors';
 import Cards from '../../components/cards/cards';
 import { TOffer } from '../../types/types';
 
@@ -14,8 +14,8 @@ export default function Offer(): JSX.Element {
 
   const [cardHover, setCardHover] = useState<string | null>(null);
 
-  const offers = getOffersByCity();
-
+  const offers: TOffer[] = useOffersByCity();
+  offers.length = 3;
   console.log('offers=', offers);
 
   

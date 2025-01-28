@@ -4,12 +4,12 @@ import Cards from '../../components/cards/cards';
 import { TOffersCitiesProps } from '../../types/types';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../store/reducer';
-import { getOffersByCity } from '../../store/selectors';
+import { useOffersByCity } from '../../store/selectors';
 
 
 export default function Favorites():JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
-  const offers = useAppSelector(getOffersByCity);
+  const offers = useOffersByCity();
 
   return (
     <div className="page">
