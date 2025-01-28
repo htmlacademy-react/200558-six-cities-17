@@ -1,17 +1,24 @@
 import { useState } from 'react';
-import Cards from '../../components/cards/cards';
 import CommentForm from '../../components/commentForm/commentForm';
-import {TOffersProp} from '../../types/types';
 import OfferInsideList from '../../components/offerInsideList/offerInsideList';
 import OfferGallery from '../../components/offerGallery/offerGallery';
 import ReviewsList from '../../components/reviewsList/reviewsList';
 import Header from '../../components/header/header';
+import { getOfferById } from '../../store/selectors';
+import Cards from '../../components/cards/cards';
+import { TOffer } from '../../types/types';
 
 
 
-export default function Offer({ offers }: TOffersProp): JSX.Element {
+export default function Offer(): JSX.Element {
 
   const [cardHover, setCardHover] = useState<string | null>(null);
+
+  const offers = getOffersByCity();
+
+  console.log('offers=', offers);
+
+  
   const onCommontFormSubmit = (text: string) => {
   };
   const comments = [{ comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.', id: '1' }, { comment: 'wefw', id: '2' }];
@@ -208,6 +215,7 @@ export default function Offer({ offers }: TOffersProp): JSX.Element {
                   setCardHover(id);
                 }}
               />
+
             </div>
           </section>
         </div>

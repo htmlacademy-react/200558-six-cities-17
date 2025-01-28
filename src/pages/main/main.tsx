@@ -6,7 +6,6 @@ import Map from '../../components/map/map';
 import Locations from '../../components/locations/locations';
 import { setCity } from '../../store/action';
 import useAppDispatch from '../../store/reducer';
-import { useAppSelector } from '../../store/reducer';
 import Header from '../../components/header/header';
 import {getOffersByCity} from '../../store/selectors';
 
@@ -15,7 +14,7 @@ let offer: TOffer[];
 export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const [cardHover, setCardHover] = useState<string | null>(null);
-  offer = useAppSelector(getOffersByCity);
+  offer = getOffersByCity();
 
   return (
     <div className="page page--gray page--main">
