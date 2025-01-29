@@ -6,24 +6,22 @@ import Offer from '../pages/offer/offer';
 import { PrivateStatus, Address } from '../data/constant';
 import ErrorAddressing from '../pages/errorAddressing/errorAddressing';
 import PrivateRoute from '../privateRoute';
-import { TOffer } from '../types/types';
-import { offersCities } from '../mocks/offers';
 import { Provider } from 'react-redux';
 import {store} from '../store/reducer.ts';
 
-export default function App({ offers }: { offers:TOffer[]}):JSX.Element {
+export default function App():JSX.Element {
 
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          {/* <Route index element={<Favorites offers={offersCities} />}/> */}
-          <Route index element={<Main />} />
+          <Route index element={<Favorites/>}/>
+          <Route index element={<Main/>} />
           {/* <Route index element={<Offer offers={offers} />} /> */}
-          <Route path={Address.login} element={<Login />} />
+          <Route path={Address.login} element={<Login/>} />
           <Route path={Address.favorites} element={
             <PrivateRoute status={PrivateStatus.Guest}>
-              <Favorites offers={offersCities}/>
+              <Favorites/>
             </PrivateRoute>
           }
           />

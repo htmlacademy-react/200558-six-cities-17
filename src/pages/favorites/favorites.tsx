@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Cards from '../../components/cards/cards';
-import { TOffersCitiesProps } from '../../types/types';
 import Header from '../../components/header/header';
-import { useAppSelector } from '../../store/reducer';
 import { useOffersByCity } from '../../store/selectors';
 
 
 export default function Favorites():JSX.Element {
   const [cardHover, setCardHover] = useState<string | null>(null);
   const offers = useOffersByCity();
+  console.log('offers=', offers);
 
   return (
     <div className="page">

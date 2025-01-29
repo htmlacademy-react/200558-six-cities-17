@@ -8,17 +8,21 @@ import { useOffersByCity } from '../../store/selectors';
 import Cards from '../../components/cards/cards';
 import { TOffer } from '../../types/types';
 
-
-
 export default function Offer(): JSX.Element {
 
   const [cardHover, setCardHover] = useState<string | null>(null);
 
   const offers: TOffer[] = useOffersByCity();
   offers.length = 3;
-  console.log('offers=', offers);
+  const offerGalleryParams = [
+    { src: 'img/room.jpg', alt: 'Photo studio',id:'1' },
+    {src: 'img/apartment-01.jpg', alt:'Photo studio', id:'2'},
+    {src: 'img/apartment-02.jpg', alt: 'Photo studio', id: '3'},
+    {src: 'img/apartment-03.jpg', alt: 'Photo studio', id:'4'},
+    {src: 'img/studio-01.jpg', alt: 'Photo studio', id:'5'},
+    {src: 'img/apartment-01.jpg', alt: 'Photo studio',id:'6'},
+  ];
 
-  
   const onCommontFormSubmit = (text: string) => {
   };
   const comments = [{ comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.', id: '1' }, { comment: 'wefw', id: '2' }];
@@ -49,18 +53,7 @@ export default function Offer(): JSX.Element {
                 <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
               </div>
             </div> */}
-            <OfferGallery>
-              {
-                [
-                  ['img/room.jpg', 'Photo studio'],
-                  ['img/apartment-01.jpg', 'Photo studio'],
-                  ['img/apartment-02.jpg', 'Photo studio'],
-                  ['img/apartment-03.jpg', 'Photo studio'],
-                  ['img/studio-01.jpg', 'Photo studio'],
-                  ['img/apartment-01.jpg', 'Photo studio']
-                ]
-              }
-            </OfferGallery>
+            <OfferGallery>{offerGalleryParams}</OfferGallery>
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">

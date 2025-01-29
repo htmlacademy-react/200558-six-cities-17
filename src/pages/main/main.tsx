@@ -1,7 +1,7 @@
 import { TOffer } from '../../types/types';
 import { СITIES } from '../../data/constant';
 import Cards from '../../components/cards/cards';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Map from '../../components/map/map';
 import Locations from '../../components/locations/locations';
 import { setCity } from '../../store/action';
@@ -11,10 +11,19 @@ import { useOffersByCity } from '../../store/selectors';
 
 let offer: TOffer[];
 
-export default function Main(): JSX.Element {
+export default function Main() {
   const dispatch = useAppDispatch();
   const [cardHover, setCardHover] = useState<string | null>(null);
   offer = useOffersByCity();
+
+  useEffect(()=> {
+    setTimeout(() => {
+      dispatch(setCity(СITIES[0]));
+    }, 500);
+  }, []);
+  if(! offer) {
+    return 'loading';
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -31,7 +40,7 @@ export default function Main(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offer.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offer?.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -58,7 +67,7 @@ export default function Main(): JSX.Element {
               <section className="cities__map map">
                 <Map points={offer}
                   selectedPoint={cardHover}
-                  city={offer[0].city.location}
+                  city={offer?.[0].city.location}
                 />
               </section>
             </div>
