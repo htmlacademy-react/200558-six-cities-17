@@ -1,8 +1,13 @@
-import react, { Fragment, useState } from 'react';
+import react, { Fragment, RefObject, useState, memo } from 'react';
+import { TObject } from '../../types/types';
 
-type TCommentForm = { onSubmit: (evt: string) => void };
+export type TCommentFromEvt = { comment: string; rating: number };
+export type TCommentForm = {
+  onSubmit: (evt: TCommentFromEvt) => void | boolean | number | string | TObject;
+  textareaRef: RefObject<HTMLTextAreaElement>;
+};
 
-function CommentForm({ onSubmit }: TCommentForm): JSX.Element {
+const CommentFormFun = ({ onSubmit, textareaRef }: TCommentForm): JSX.Element => {
   const [text, setText] = useState<string>('');
   const [rating, setRating] = useState<number>(2);
 
@@ -10,13 +15,13 @@ function CommentForm({ onSubmit }: TCommentForm): JSX.Element {
     setText(evt.target.value);
   };
   function onFormSubmit(evt: react.FormEvent<HTMLFormElement>) {
-    onSubmit(text);
     evt.preventDefault();
+    onSubmit({ comment:text, rating:rating });
   }
   function onInputChange(rat: number) {
     setRating(rat);
   }
-  const inputRatings = Array.from({ length: 5 }, (el, i) => (
+  const inputRatings = Array.from({ length: 5 }, (_, i) => (
     <Fragment key={i}>
       <input
         className="form__rating-input visually-hidden"
@@ -45,7 +50,7 @@ function CommentForm({ onSubmit }: TCommentForm): JSX.Element {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {inputRatings} 0
+        {inputRatings}
       </div>
       <textarea
         className="reviews__textarea form__textarea"
@@ -54,6 +59,7 @@ function CommentForm({ onSubmit }: TCommentForm): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         defaultValue={''}
         onInput={onInput}
+        ref={textareaRef}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -64,6 +70,7 @@ function CommentForm({ onSubmit }: TCommentForm): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
+          disabled={text.length < 50}
         >
           Submit
         </button>
@@ -71,4 +78,5 @@ function CommentForm({ onSubmit }: TCommentForm): JSX.Element {
     </form>
   );
 }
-export default CommentForm;
+
+export const CommentForm = memo(CommentFormFun);

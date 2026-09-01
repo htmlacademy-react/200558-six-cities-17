@@ -1,30 +1,26 @@
-import { TOffer } from '../../types/types';
-import {Card} from '../card/card';
+import { memo } from 'react';
+import { TOffers } from '../../types/types';
+import Card from '../card/card';
 
 type TCardsProps = {
-  offers: TOffer[] & {point?:object};
+  offers: TOffers[];
   onHover?: (id:string | null)=>void;
   variant: 'vertical' | 'horizontal';
+  classTextBlock?:string;
 };
 
-export default function Cards({ offers, onHover, variant }: TCardsProps):JSX.Element {
-  const config = {
-    vertical:  'cities',
-    horizontal: 'favorites',
-  };
+const Cards = ({ offers, ...props }: TCardsProps): JSX.Element => (
+  <>
+    {
+      offers.map((el: TOffers): JSX.Element => (
+        <Card
+          offer={el}
+          key={el.id}
+          {...props}
+        />
+      ))
+    }
+  </>
+);
 
-  return (
-    <div className={`${config[variant]} places__list`}>
-      {
-        offers.map((el: TOffer): JSX.Element => (
-          <Card
-            offer={el}
-            onHover={onHover}
-            key={el.id}
-            variant={variant}
-          />
-        ))
-      }
-    </div>
-  );
-}
+export default memo(Cards);
