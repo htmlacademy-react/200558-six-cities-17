@@ -3,7 +3,6 @@ import { TComment } from '../../types/types';
 
 type TReviewsListProps = {
   data: TComment[];
-  bemBlock:string;
 };
 export default function Comments({ data, ...props }: TReviewsListProps): JSX.Element {
   return (

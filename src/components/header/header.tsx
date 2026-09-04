@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Address, Token } from '../../data/constant';
 import { useFavorites } from '../../store/useSelectors';
-//import { setEmail } from '../../store/action';
 import { useDispatch } from 'react-redux';
 import { memo } from 'react';
 import {TOffers } from '../../types/types';
@@ -45,7 +44,7 @@ function HeaderFun() {
               {
                 email &&
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#" onClick={onExit} data-testid="link-signout">
+                  <a className="header__nav-link" href="" onClick={onExit} data-testid="link-signout">
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>

@@ -136,10 +136,10 @@ describe('Header', () => {
       expect(container.querySelector('.header__favorite-count')).not.toBeInTheDocument();
     });
 
-    it('does not render sign out link with header__nav-link', () => {
+    it('renders profile link without sign out', () => {
       const { container } = renderHeader();
 
-      expect(screen.queryByText('Sign out')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('link-signout')).not.toBeInTheDocument();
       // Только ссылка профиля, без Sign out (header.tsx:46–51).
       expect(container.querySelector('.header__nav-link')).toBeInTheDocument();
     });
@@ -184,15 +184,15 @@ describe('Header', () => {
     });
 
     it('renders sign out link with header__nav-link', () => {
-      const { container } = renderHeader();
+      renderHeader();
 
       expect(screen.getByText('Sign out')).toBeInTheDocument();
     });
 
     it('does not show Sign in', () => {
-      const { container } = renderHeader();
+      renderHeader();
 
-      expect(screen.queryByText('Sign in')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('login')).not.toBeInTheDocument();
     });
 
     it('shows Sign in after sign out click', async () => {

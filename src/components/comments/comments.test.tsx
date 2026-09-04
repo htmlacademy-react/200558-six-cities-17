@@ -37,24 +37,19 @@ describe('Comments', () => {
     makeComment({ id: '3', comment: 'Third review', rating: 4 }),
   ];
 
-  const bemBlock = 'reviews';
-
   beforeEach(() => {
     mockComment.mockClear();
   });
 
   const renderComments = (data: TComment[] = sampleComments) => {
-    render(<Comments data={data} bemBlock={bemBlock} />);
+    render(<Comments data={data} />);
   };
 
   const expectCommentsToReceiveData = (commentsList: TComment[]) => {
     expect(mockComment).toHaveBeenCalledTimes(commentsList.length);
 
     commentsList.forEach((comment, index) => {
-      expect(mockComment.mock.calls[index][0]).toEqual(expect.objectContaining({
-        ...comment,
-        bemBlock,
-      }));
+      expect(mockComment.mock.calls[index][0]).toEqual(comment);
     });
   };
 

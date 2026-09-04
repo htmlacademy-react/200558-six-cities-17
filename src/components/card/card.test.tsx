@@ -1,17 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import { beforeEach, vi } from 'vitest';
+import { beforeEach, describe, vi } from 'vitest';
 import Card, { type TCardProps } from './card';
 import { offers } from '../../mocks/offers';
 import { TOffers } from '../../types/types';
 import { expectAttribute } from '../../store/library/test/test';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
 
 const { mockBookmarkButton } = vi.hoisted(() => ({
   mockBookmarkButton: vi.fn(() => <div data-testid="bookmark-button-mock" />),
 }));
 
-vi.mock('../bookmarkButton/bookmarkButton', () => ({
+vi.mock('../bookmark-button/bookmark-button', () => ({
   BookmarkButton: mockBookmarkButton,
 }));
 
@@ -19,7 +21,7 @@ type RenderCardOptions = Partial<Omit<TCardProps, 'offer'>> & {
   offer?: Partial<TCardProps['offer']>;
 };
 
-const defaultOffer = offers[0];
+const offerDefault = offers[0];
 function renderCard({
   offer = {},
   variant = 'vertical',
@@ -27,14 +29,16 @@ function renderCard({
   classTextBlock = '',
 }: RenderCardOptions = {}) {
   render(
+    <Provider store={store}>
       <MemoryRouter>
         <Card
-          offer={{ ...defaultOffer, ...offer }}
+          offer={{ ...offerDefault, ...offer }}
           variant={variant}
           onHover={onHover}
           classTextBlock={classTextBlock}
         />
       </MemoryRouter>
+    </Provider>
   );
 }
 
@@ -42,7 +46,7 @@ const renderCardOffer = (offer: Partial<TOffers>) => {
   return renderCard({ offer });
 }
 
-
+describe('card',()=> {
 beforeEach(() => {
   mockBookmarkButton.mockClear();
 });
@@ -99,6 +103,7 @@ it('renders matching price value', () => {
   expect(priceValue).toHaveTextContent('500');
 });
 
+describe('rating width',() => {
 it.each<[number, string]>([
   [4, '80%'],
   [3, '60%'],
@@ -110,6 +115,7 @@ it.each<[number, string]>([
   const ratingBar = screen.getByTestId('rating');
 
   expect(ratingBar).toHaveStyle({ width: expectedWidth });
+});
 });
 
 it('passes matching props to BookmarkButton', () => {
@@ -124,7 +130,7 @@ it('passes matching props to BookmarkButton', () => {
       defaultState: true,
       bemBlock: 'place-card',
     }),
-    {},
+    {}
   );
 });
 
@@ -181,15 +187,16 @@ it('calls onHover with offer id on mouse enter and null on mouse leave', async (
   expect(onHover).toHaveBeenCalledWith(null);
 });
 
-it.each<[string]>([
+it.each<string>([
   'apartment',
   'room',
 ])('offer.type', (type) => {
-  renderCardOffer({type });
-  screen.getByText(type);
+  renderCardOffer({type});
+  expect(screen.getByText(type)).toBeInTheDocument();
 });
 
 it('offer.title', ()=>{
   renderCardOffer({});
-  screen.getByText(defaultOffer.title);
+  expect(screen.getByText(offerDefault.title)).toBeInTheDocument();
+});
 });

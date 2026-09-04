@@ -14,8 +14,6 @@ import { useEmail } from '../store/useSelectors';
 export default function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const email = useEmail();
-
   useEffect(() => {
     const controller = new AbortController();
     dispatch(getLogin());
@@ -24,18 +22,26 @@ export default function App(): JSX.Element {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route index element={<Main/>} />
-        <Route path={Address.login} element={<Login />} />
-        <Route path={Address.favorites} element={
-          <PrivateRoute status={email ? PrivateStatus.Auth : PrivateStatus.Guest}>
-            <Favorites />
-          </PrivateRoute>
-        }
-        />
-        <Route path={Address.offer} element={<Offer />} />
-        <Route path="*" element={<ErrorAddressing />} />
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
+  );
+}
+
+function AppRoutes(): JSX.Element {
+  const email = useEmail();
+  
+  return (
+    <Routes>
+    <Route index element={<Main/>} />
+    <Route path={Address.login} element={<Login />} />
+    <Route path={Address.favorites} element={
+      <PrivateRoute status={email ? PrivateStatus.Auth : PrivateStatus.Guest}>
+        <Favorites />
+      </PrivateRoute>
+    }
+    />
+    <Route path={Address.offer} element={<Offer />} />
+    <Route path="*" element={<ErrorAddressing />} />
+  </Routes>
   );
 }
