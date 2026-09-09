@@ -1,0 +1,340 @@
+import { it, test, expect } from 'vitest';
+import type { Mock } from 'vitest';
+import { renderHook } from '@testing-library/react';
+import type { Reducer } from '@reduxjs/toolkit';
+import type { AxiosInstance } from 'axios';
+import type MockAdapter from 'axios-mock-adapter';
+import { TReducerAction, TReducerActionFromStrict } from './test-type.ts';
+import { TObject } from '../../../types/types.ts';
+
+export type THttpMethod = 'get' | 'post' | 'put' | 'delete';
+export type TReply<TRes = unknown> = [number] | [number, TRes];
+export type TThunkAction = (
+  dispatch: Mock,
+  getState: Mock,
+  api: AxiosInstance,
+) => Promise<unknown>;
+
+export type TTestAsyncActionDeps = {
+  mock: MockAdapter;
+  dispatch: Mock;
+  getState: Mock;
+  api: AxiosInstance;
+};
+
+/**
+ * Мокает HTTP-ответ, вызывает async thunk и проверяет, что dispatch
+ * получил ожидаемый sync-action (setOffers / setUser и т.п.).
+ *
+ * getDeps — getter: значения берутся внутри `it` (после beforeEach).
+ * reply: [status] — только код (ошибка без тела);
+ *        [status, body] — успешный ответ с данными.
+ */
+
+const onRequestObj = {
+  get: () => mock.onGet(url),
+  post: () => mock.onPost(url),
+  put: () => mock.onPut(url),
+  delete: () => mock.onDelete(url),
+};
+export const createTestAsyncAction =
+  (getDeps: () => TTestAsyncActionDeps) =>
+  <TRes = unknown>(
+    text: string,
+    type: THttpMethod,
+    url: string,
+    reply: TReply<TRes>,
+    action: TThunkAction,
+    expected?: unknown,
+  ): void => {
+    it(text, async () => {
+      const { mock, dispatch, getState, api } = getDeps();
+      const onRequest = {
+        get: () => mock.onGet(url),
+        post: () => mock.onPost(url),
+        put: () => mock.onPut(url),
+        delete: () => mock.onDelete(url),
+      }[type];
+
+      onRequest().reply(...reply);
+
+      await action(dispatch, getState, api);
+
+      if (expected !== undefined) {
+        expect(dispatch).toHaveBeenCalledWith(expected);
+      }
+    });
+  };
+
+const isObject = (value: unknown): value is object =>
+  typeof value === 'object' && value !== null;
+type TObjs = Array<[object | Array<unknown>, object | Array<unknown>]>;
+const copyObjSuperficial = (
+  obj1: object,
+  obj2: object,
+  objs: TObjs,
+): void => {
+  for (const prop in obj2) {
+    const value1 = obj1[prop];
+    const value2 = obj2[prop];
+
+    if (!isObject(value1) || !isObject(value2)) {
+      obj1[prop] = value2;
+      continue;
+    }
+    if (Array.isArray(value2)) {
+      if (Array.isArray(value1)) {
+        obj1[prop] = [...value1, ...value2];
+      } else {
+        obj1[prop] = value2;
+      }
+      continue;
+    } else if (!Array.isArray(value1)) {
+      obj1[prop] = { ...value1 };
+    }
+    objs.push([obj1[prop], obj2[prop]]);
+  }
+};
+const copyObjReducer = <TState extends object>(
+  obj1: TState,
+  obj2: TState,
+): TState => {
+  const objs: TObjs = [];
+  const copyObjThis = (obj1: object, obj2: object) =>
+    copyObjSuperficial(obj1, obj2, objs);
+  copyObjThis(obj1, obj2);
+  while (objs.length) {
+    type TObjsArr = [object, object];
+    const [obj1, obj2] = objs.shift() as TObjsArr;
+    copyObjThis(obj1, obj2);
+  }
+  return obj1;
+};
+
+// type TTestAction = (
+//   text: string,
+//   fun: (param: unknown) => TAction,
+//   type: string,
+//   parameters: Array<unknown>,
+// ) => void;
+// export const testAction: TTestAction = (text, fun, type, parameters) => {
+//   test.each(parameters)(`${text}: %j`, (param) => {
+//     const objSetCity = fun(param);
+//     expect(objSetCity).toEqual({ type, payload: param });
+//   });
+// };
+// export const testActionLink: TTestAction = (text, fun, type, parameters) => {
+//   test.each(parameters)(`${text}: %j`, (param) => {
+//     const objSetCity = fun(param);
+//     expect(objSetCity).toEqual({ type, payload: param });
+//   });
+//   test.each(parameters)(`${text} link ===: %j`, (param) => {
+//     const objSetCity = fun(param);
+//     expect(objSetCity.payload).toBe(param);
+//   });
+// };
+
+export type TReducer<TState extends object> = Reducer<TState>;
+
+export type NarrowFromExpect<
+  TState extends object,
+  TExpect extends Partial<TState>,
+> = {
+  [K in keyof TState]: K extends keyof TExpect
+    ? null extends TState[K]
+      ? null extends NonNullable<TExpect[K]>
+        ? TState[K]
+        : NonNullable<TState[K]>
+      : TState[K]
+    : TState[K];
+};
+
+type LastExpectFromParams<
+  TState extends object,
+  TParams extends readonly unknown[],
+> = TParams extends readonly [...unknown[], infer TLast extends Partial<TState>]
+  ? TLast
+  : Partial<TState>;
+
+type TActionExpects<TState extends object, TAction = TReducerAction> =
+  | [string,TAction, TState]
+  | [string,TAction, TState, ...Array<TAction | TState | string>];
+type TActionExpectsPartial<
+  TState extends object,
+  TAction = TReducerAction,
+> = TActionExpects<Partial<TState>, TAction>;
+
+export const testReducer = <
+  TState extends object,
+  TParams extends TActionExpectsPartial<TState> = TActionExpectsPartial<TState>,
+>(
+    initialState: TState | undefined,
+    reducer: TReducer<TState>,
+    ...lastParams: TActionExpects<TState>
+  ): NarrowFromExpect<TState, LastExpectFromParams<TState, TParams>> => {
+  type TCallback = (text:string,state: TState, expectState: TState) => void;
+  const lastParamsFor = (callback: TCallback = () => {}): TState => {
+    let state: TState | undefined = initialState;
+    for (let i = 0; i < lastParams.length - 1; i += 3) {
+      type TArrActionExpectstate = [string,TReducerAction, TState];
+      const [text, action, expectState] = lastParams.slice(
+        i,
+        i + 3,
+      ) as TArrActionExpectstate;
+      if (state !== undefined) {
+        state = structuredClone(state);
+      }
+      state = reducer(state, action);
+      callback(text, state, expectState);
+    }
+    if (state === undefined) {
+      throw new Error(
+        `${text}: expected at least one [action, expectState] pair`,
+      );
+    }
+    return state;
+  };
+
+  return lastParamsFor((text, state, expectState) => {
+    it(`${text} reducer`, () => {
+      expect(state).toEqual(expectState);
+    });
+  });
+};
+
+export const testReducerByChange = <
+  TState extends object,
+  TParams extends TActionExpectsPartial<TState> = TActionExpectsPartial<TState>,
+>(
+    initialState: TState | undefined,
+    reducer: TReducer<TState>,
+    ...lastParams: TParams
+  ): NarrowFromExpect<TState, LastExpectFromParams<TState, TParams>> => {
+ type TCallback = (text: string, state: TState, expectState: TState) => void;
+ const lastParamsFor = (callback: TCallback = () => {}): TState => {
+   let state: TState | undefined = initialState;
+   for (let i = 0; i < lastParams.length - 1; i += 3) {
+     type TArrActionExpectstate = [string, TReducerAction, TState];
+     let [text, action, expectState] = lastParams.slice(
+       i,
+       i + 3,
+     ) as TArrActionExpectstate;
+     if (state !== undefined) {
+       state = structuredClone(state);
+     }
+     expectState = copyObjReducer({ ...state }, expectState);
+     state = reducer(state, action);
+     callback(text, state, expectState);
+   }
+   if (state === undefined) {
+     throw new Error(
+       `${text}: expected at least one [action, expectState] pair`,
+     );
+   }
+   return state;
+ };
+
+ return lastParamsFor((text, state, expectState) => {
+   it(`${text} reducer`, () => {
+     expect(state).toEqual(expectState);
+   });
+ });
+};
+
+const unknownReducerAction: TReducerAction = { type: '@@TEST/UNKNOWN' };
+
+export const testReduxUndefined = <TState extends object>(
+  text: string,
+  reducer: TReducer<TState>,
+  expectState: TState,
+): TState =>
+    testReducer(
+      undefined,
+      reducer,
+      `${text} default`,
+      unknownReducerAction,
+      expectState,
+    );
+
+export type TTestSpecificRedux = (
+  text: string,
+  initialState: object,
+  action: TReducerAction,
+  expect: object,
+) => object;
+
+type TTestReducerParam<TState extends object, TAction = TReducerAction> = (
+  initialState: TState | undefined,
+  ...lastProps: TActionExpects<TState, TAction>
+) => TState;
+
+type TTestReducerByChangeParam<
+  TState extends object,
+  TAction = TReducerAction,
+> = <TParams extends TActionExpectsPartial<TState, TAction>>(
+  initialState: TState | undefined,
+  ...lastProps: TParams
+) => NarrowFromExpect<TState, LastExpectFromParams<TState, TParams>>;
+
+type TTest<TState extends object = TObject, TAction = TReducerAction> = (
+  testReducer: TTestReducerParam<TState, TAction>,
+  testReducerByChange: TTestReducerByChangeParam<TState, TAction>,
+) => void;
+type TUseSelectorTestCase = [
+  text: string,
+  modifyState: () => void,
+  useSelector: () => unknown,
+  expected: { toEqual?: unknown; toBe?: unknown },
+];
+
+/** Проверяет соответствие нескольких HTML/SVG-атрибутов: expectAttribute(svg, { width: 24, height: 45 }). */
+export const expectAttribute = (
+  element: Element | null,
+  attributes: Record<string, string | number | boolean>,
+): void => {
+  expect(element).toBeInTheDocument();
+
+  for (const [name, value] of Object.entries(attributes)) {
+    expect(element).toHaveAttribute(name, String(value));
+  }
+};
+
+/** Один тест хука: меняем состояние, вызываем useSelector, сравниваем с ожиданием. */
+export const testUseSelector = (
+  ...params: Array<TUseSelectorTestCase>
+): void => {
+  for (const [text, modifyState, useSelector, expected] of params) {
+    it(text, () => {
+      modifyState();
+      const { result } = renderHook(() => useSelector());
+      const key = Object.keys(expected)[0] as 'toEqual' | 'toBe';
+      expect(result.current)[key](expected[key]);
+    });
+  }
+};
+
+export const testDescribe = <
+  TState extends object,
+  TStrictAction extends boolean = true,
+>(
+    text: string,
+    reducer: TReducer<TState>,
+    expectState: TState,
+    test: TTest<TState, TReducerActionFromStrict<TStrictAction>>,
+  ): void => {
+  const testSpecificReducer: TTestReducerParam<
+    TState,
+    TReducerActionFromStrict<TStrictAction>
+  > = (initialState, ...lastProps) =>
+    testReducer<TState>(initialState, reducer, ...lastProps);
+
+  const testSpecificReducerByChange: TTestReducerByChangeParam<
+    TState,
+    TReducerActionFromStrict<TStrictAction>
+  > = (initialState, ...lastProps) =>
+    testReducerByChange(initialState, reducer, ...lastProps);
+  describe(text, () => {
+    testReduxUndefined('', reducer, expectState);
+    test(testSpecificReducer, testSpecificReducerByChange);
+  });
+};
