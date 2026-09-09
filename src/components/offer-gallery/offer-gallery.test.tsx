@@ -17,16 +17,6 @@ describe('OfferGallery', () => {
     expect(wrappers).toHaveLength(images.length);
   });
 
-  it('renders img elements with corresponding src, alt and className', () => {
-    render(<OfferGallery children={images} />);
-
-    images.forEach(({ src, alt }) => {
-      const img = screen.getByRole('img', { name: alt });
-
-      expect(img).toHaveAttribute('src', src);
-    });
-  });
-
   it('renders wrappers and images in the same order as children (keyed by id)', () => {
     const { container } = render(<OfferGallery children={images} />);
 

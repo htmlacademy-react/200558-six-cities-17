@@ -20,7 +20,8 @@ export default function Favorites(): JSX.Element {
     const controller = new AbortController();
     dispatch(rqFavoriteGet(controller.signal));
   },[]);
-
+  console.log('offers=', offers);
+  console.log('favorites=', favorites);
   return (
     <div className="page">
       <Header />

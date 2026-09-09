@@ -19,7 +19,6 @@ export default function Login():JSX.Element {
     axios.post<IResLogin>('https://16.design.htmlacademy.pro/six-cities/login', formData).then(({ data })=>{
       Token.value = data.token;
       navigate('/');
-      console.log('login=',data);
       dispatch(setUser(data));
     });
   }

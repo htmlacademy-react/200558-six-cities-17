@@ -4,7 +4,7 @@ import Favorites from '../pages/favorites/favorites';
 import Offer from '../pages/offer/offer';
 import { PrivateStatus, Address} from '../data/constant';
 import ErrorAddressing from '../pages/error-addressing/error-addressing';
-import PrivateRoute from '../privateRoute';
+import PrivateRoute from '../components/private-route/private-route';
 import { useEffect } from 'react';
 import Main from '../pages/main/main';
 import { getLogin } from '../store/action';
@@ -27,7 +27,7 @@ export default function App(): JSX.Element {
   );
 }
 
-function AppRoutes(): JSX.Element {
+export function AppRoutes(): JSX.Element {
   const email = useEmail();
   
   return (
